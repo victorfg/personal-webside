@@ -15,6 +15,7 @@ export default function Home(props) {
   return (
     <Layout>
       <TinaMarkdown content={content} />
+      <TestComponent/>
     </Layout>
   );
 }
@@ -33,3 +34,7 @@ export const getStaticProps = async () => {
     },
   };
 };
+
+const TestComponent = () => {
+  return <div>I hope you enjoy! :D</div>
+}
