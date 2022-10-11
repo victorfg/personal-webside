@@ -21,7 +21,7 @@
     "tinacms": "^0.69.3"
   },
   "devDependencies": {
-    "@tinacms/cli": "^0.61.8",
+    "@tinacms/cli": "^0.61.22",
     "autoprefixer": "^10.4.12",
     "eslint": "<8.0.0",
     "postcss": "^8.4.17",
