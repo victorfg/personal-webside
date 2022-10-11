@@ -902,9 +902,9 @@
   "version" "9.3.0"
 
 "@headlessui/react@^1.5.0":
-  "integrity" "sha512-gL6Ns5xQM57cZBzX6IVv6L7nsam8rDEpRhs5fg28SN64ikfmuuMgunc+Rw5C1cMScnvFM+cz32ueVrlSFEVlSg=="
-  "resolved" "https://registry.npmjs.org/@headlessui/react/-/react-1.4.1.tgz"
-  "version" "1.4.1"
+  "integrity" "sha512-LGp06SrGv7BMaIQlTs8s2G06moqkI0cb0b8stgq7KZ3xcHdH3qMP+cRyV7qe5x4XEW/IGY48BW4fLesD6NQLng=="
+  "resolved" "https://registry.npmjs.org/@headlessui/react/-/react-1.7.3.tgz"
+  "version" "1.7.3"
 
 "@heroicons/react@^1.0.4", "@heroicons/react@^1.0.5":
   "integrity" "sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ=="
@@ -2890,6 +2890,11 @@
   "integrity" "sha512-mnKEZaDBdaEoUrfSM/FiRYB1woO/yxb0mZtn5hznGbMVF6z4ZbAj9BlcbT9aejCID9NuQ8cwH/m0RnUgnlhIzA=="
   "resolved" "https://registry.npmjs.org/altair-static/-/altair-static-4.5.3.tgz"
   "version" "4.5.3"
+
+"animate.css@^4.1.1":
+  "integrity" "sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ=="
+  "resolved" "https://registry.npmjs.org/animate.css/-/animate.css-4.1.1.tgz"
+  "version" "4.1.1"
 
 "anser@1.4.9":
   "integrity" "sha512-AI+BjTeGt2+WFk4eWcqbQ7snZpDBt8SaLlj0RT2h5xfdWaiy51OjYvqwMrNzJLGy8iOAL6nKDITWO+rd4MkYEA=="

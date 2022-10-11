@@ -1,6 +1,9 @@
 import { defineConfig, defineSchema, RouteMappingPlugin } from "tinacms";
 import { client } from "./__generated__/client";
 
+import collectionPage from './collections/page.js'
+import collectionBlog from './collections/blog.js'
+
 const schema = defineSchema({
   config: {
     clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
@@ -17,42 +20,9 @@ const schema = defineSchema({
     },
   },
   collections: [
-    {
-      label: "Page Content",
-      name: "page",
-      path: "content/page",
-      format: "mdx",
-      fields: [
-        {
-          name: "body",
-          label: "Main Content",
-          type: "rich-text",
-          isBody: true,
-        },
-      ],
-    },
-    {
-      label: "Blog Posts",
-      name: "post",
-      path: "content/post",
-      fields: [
-        {
-          type: "string",
-          label: "Title",
-          name: "title",
-        },
-        {
-          type: "string",
-          label: "Blog Post Body",
-          name: "body",
-          isBody: true,
-          ui: {
-            component: "textarea",
-          },
-        },
-      ],
-    },
-  ],
+    collectionPage,
+    collectionBlog 
+  ]
 });
 
 export default schema;
@@ -68,8 +38,8 @@ export const tinaConfig = defineConfig({
         }
       }
 
-      if (["post"].includes(collection.name)) {
-        return `/posts/${document._sys.filename}`;
+      if (["blog"].includes(collection.name)) {
+        return `/blog/${document._sys.filename}`;
       }
 
       return undefined;
