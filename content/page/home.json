@@ -2,7 +2,7 @@
   "title": "{personalBlog}",
   "rows": [
     {
-      "block": "##### Post Example\n\n\n\n![](/uploads/cat.png)\n\n"
+      "block": "##### Post Example\n\n\n\n![](/uploads/cat.png)\n\nThis is a text example of a post\n"
     }
   ],
   "_collection": "page",
