@@ -1,8 +1,30 @@
 {
-  "title": "{personalBlog}",
   "rows": [
     {
-      "block": "Dynamic Text!\n"
+      "title": "test3",
+      "blocks": [
+        {
+          "block": "Xixa contenido sdggdsgdsdsg\n"
+        }
+      ]
+    },
+    {
+      "title": "Second Post",
+      "blocks": [
+        {
+          "title": "Is a second post",
+          "block": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n"
+        }
+      ]
+    },
+    {
+      "title": "Hi there",
+      "blocks": [
+        {
+          "title": "Entrada imatge i text",
+          "block": "I am a Front End developer with industry experience building websites and web applications.&#x20;\nI specialize in JavaScript and have professional experience working with React and Redux.\nTake a look at my work or get in touch! [www.vfernandez.me](www.vfernandez.me \"my web!\")\n\n<NewsletterSignup buttonText=\"custom component\">\n  fhdfhf\n</NewsletterSignup>\n"
+        }
+      ]
     }
   ]
 }

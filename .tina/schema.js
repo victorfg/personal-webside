@@ -2,7 +2,6 @@ import { defineConfig, defineSchema, RouteMappingPlugin } from "tinacms";
 import { client } from "./__generated__/client";
 
 import collectionPage from './collections/page.js'
-import collectionBlog from './collections/blog.js'
 
 const schema = defineSchema({
   config: {
@@ -20,8 +19,7 @@ const schema = defineSchema({
     },
   },
   collections: [
-    collectionPage,
-    collectionBlog 
+    collectionPage 
   ]
 });
 
