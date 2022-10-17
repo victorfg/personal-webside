@@ -21,25 +21,24 @@ export default function Home (props) {
     return (
       <>
         <Head>
-        <title>PersonalBlog</title>
-        <meta name='description' content='A personal blog' />
-        <link rel='icon' href='/favicon.ico' />
+          <title>PersonalBlog</title>
+          <meta name='description' content='A personal blog' />
+          <link rel='icon' href='/favicon.ico' />
         </Head>
         <Layout>
           {(data.page.rows || []).map((row, i) => (
             <Link href={`/blog/${row.title}`} key={uuidv4()}>
               <a className='cursor-pointer'>
-                <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'>
+                <h1 className='text-5xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
                   {row.title}
                 </h1>
                 {(row?.blocks || []).map((block, b) => (
-                  <article key={b} style={{ flex: 1 }}>
-                    <TinaMarkdown content={block.block} />
-                  </article>
+                  <div className='truncate prose max-w-none pb-4 dark:prose-dark text-justify'>
+                    <article key={b} style={{ flex: 1 }}>
+                      <TinaMarkdown content={block.block} />
+                    </article>
+                  </div>
                 ))}
-                <p className='text-lg leading-7 text-gray-500 dark:text-gray-400'>
-                  {row.description}
-                </p>
               </a>
           </Link>
           ))}

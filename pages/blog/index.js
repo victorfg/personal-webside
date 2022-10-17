@@ -1,4 +1,4 @@
-import { Layout } from '../../components/Layout'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useTina } from 'tinacms/dist/edit-state'
 import { TinaMarkdown } from "tinacms/dist/rich-text";
@@ -36,7 +36,11 @@ export default function PostList (props) {
     console.log(data.page.rows)
     return (
       <>
-        <h1 className="text-5xl font-extrabold dark:text-white">Blog</h1>
+        <Head>
+          <title>Blog</title>
+          <meta name='description' content='A personal blog' />
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
         {(data.page.rows || []).map((row, i) => (
           <Link href={`/blog/${row.title}`} key={uuidv4()}>
             <a className='cursor-pointer'>
@@ -44,13 +48,12 @@ export default function PostList (props) {
                 {row.title}
               </h1>
               {(row?.blocks || []).map((block, b) => (
-                <article key={b} style={{ flex: 1 }}>
-                  <TinaMarkdown components={pageComponents} content={block.block} />
-                </article>
+                <div className='prose max-w-none pb-4 dark:prose-dark text-justify'>
+                    <article key={b} style={{ flex: 1 }}>
+                      <TinaMarkdown components={pageComponents} content={block.block} />
+                    </article>
+                </div>
               ))}
-              <p className='text-lg leading-7 text-gray-500 dark:text-gray-400'>
-                {row.description}
-              </p>
             </a>
         </Link>
         ))}

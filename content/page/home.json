@@ -1,10 +1,11 @@
 {
   "rows": [
     {
-      "title": "test3",
+      "title": "Third post",
       "blocks": [
         {
-          "block": "Xixa contenido sdggdsgdsdsg\n"
+          "title": "Third post",
+          "block": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In venenatis lacinia leo ac facilisis. Pellentesque eget auctor ipsum. Ut non euismod magna. Proin lacinia odio at justo congue lacinia. Sed at hendrerit massa, vitae pulvinar sem. Nullam faucibus pharetra dolor, vitae scelerisque purus lobortis in. Donec sagittis purus ut condimentum sagittis. Donec posuere sollicitudin odio et vehicula. Cras sagittis nisi in orci porttitor, a viverra ligula dapibus. Cras sed velit quis tellus elementum finibus.\n"
         }
       ]
     },
@@ -26,10 +27,5 @@
         }
       ]
     }
-  ],
-  "_collection": "page",
-  "_keepTemplateKey": false,
-  "_template": "page",
-  "_relativePath": "home.json",
-  "_id": "content/page/home.json"
+  ]
 }

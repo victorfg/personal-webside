@@ -23,9 +23,11 @@ export default function Home (props) {
         {getBlogItem?.title}
       </h1>
       {(getBlogItem?.blocks || []).map((block, b) => (
-          <article key={b} style={{ flex: 1 }}>
-            <TinaMarkdown content={block.block} />
-          </article>
+        <div className='prose max-w-none pb-4 dark:prose-dark text-justify'>
+            <article key={b} style={{ flex: 1 }}>
+              <TinaMarkdown content={block.block} />
+            </article>
+        </div>
       ))}
       {/*DEBUG*/}
       {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
