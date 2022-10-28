@@ -1,8 +1,9 @@
+import Head from 'next/head'
 import { Layout } from '../../components/Layout'
 import { useTina } from 'tinacms/dist/edit-state'
 import { client } from '../../.tina/__generated__/client'
 import {getItemFromArray} from '../../models/models';
-import { staticRequest } from "tinacms";
+import { v4 as uuidv4 } from 'uuid';
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 export default function Home (props) {
@@ -18,20 +19,28 @@ export default function Home (props) {
   }
 
   return (
-    <Layout>
-     <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'>
-        {getBlogItem?.title}
-      </h1>
-      {(getBlogItem?.blocks || []).map((block, b) => (
-        <div className='prose max-w-none pb-4 dark:prose-dark text-justify'>
-            <article key={b} style={{ flex: 1 }}>
-              <TinaMarkdown content={block.block} />
-            </article>
-        </div>
-      ))}
-      {/*DEBUG*/}
-      {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-    </Layout>
+    <>
+      <Head>
+        <title>Blog</title>
+        <meta name='description' content='A personal blog' />
+        <meta name='og:title' content='A personal blog' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Layout>
+        <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'>
+          {getBlogItem?.title}
+        </h1>
+        {(getBlogItem?.blocks || []).map((block, b) => (
+          <div className='prose max-w-none pb-4 dark:prose-dark text-justify'key={uuidv4()}>
+              <article style={{ flex: 1 }}>
+                <TinaMarkdown content={block.block} />
+              </article>
+          </div>
+        ))}
+        {/*DEBUG*/}
+        {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
+      </Layout>
+    </>
   )
 }
 

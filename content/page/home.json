@@ -23,7 +23,7 @@
       "blocks": [
         {
           "title": "Entrada imatge i text",
-          "block": "I am a Front End developer with industry experience building websites and web applications.&#x20;\nI specialize in JavaScript and have professional experience working with React and Redux.\nTake a look at my work or get in touch! [www.vfernandez.me](www.vfernandez.me \"my web!\")\n\n<NewsletterSignup buttonText=\"custom component\">\n  fhdfhf\n</NewsletterSignup>\n"
+          "block": "I am a Front End developer with industry experience building websites and web applications.&#x20;\nI specialize in JavaScript and have professional experience working with React and Redux.\nTake a look at my work or get in touch! [www.vfernandez.me](www.vfernandez.me \"my web!\")\n"
         }
       ]
     }
