@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import ThemeSwitch from '../components/ThemeSwitch'
 import MobileNav from '../components/MobileNav'
 import headerNavLinks from '../siteMetadata/headerNavLinks'
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import useScrollPosition from '../hooks/useScrollPosition'
 import useDeviceDetect from '../utils/utils'
 const siteMetadata = require('../siteMetadata/siteMetadata')
