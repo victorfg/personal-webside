@@ -23,7 +23,7 @@
       "blocks": [
         {
           "title": "Entrada imatge i text",
-          "block": "I am a Front End developer with industry experience building websites and web applications.&#x20;\nI specialize in JavaScript and have professional experience working with React and Redux.\nTake a look at my work or get in touch! [www.vfernandez.me](www.vfernandez.me \"my web!\")\n"
+          "block": "Clean code is always appreciated. In JavaScript, you can adopt ES6 syntax to make your code cleaner.\n\n### Arrow Functions\n\n```javascript\n// ES5\nfunction getSum(a, b) {\n  return a + b;\n}\n\n// ES6\nconst getSum = (a, b) => a + b;\n```\n\n"
         }
       ]
     }
