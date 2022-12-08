@@ -12,5 +12,10 @@
         "react"
       ]
     }
-  ]
+  ],
+  "_collection": "page",
+  "_keepTemplateKey": false,
+  "_template": "page",
+  "_relativePath": "home.json",
+  "_id": "content/page/home.json"
 }
