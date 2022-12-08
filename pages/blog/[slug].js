@@ -5,6 +5,29 @@ import { client } from '../../.tina/__generated__/client'
 import {getItemFromArray} from '../../models/models';
 import { v4 as uuidv4 } from 'uuid';
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { CodeblockCustom } from '../../components/CodeblockCustom';
+
+const pageComponents = {
+  NewsletterSignup: props => {
+    return (
+      <>
+        <div>
+          <TinaMarkdown content={props.children} />
+        </div>
+        <div>
+          <form>
+            <label htmlFor="email-address">Custom email</label>
+            <input name="email-address" type="email" required />
+            <button type="submit">{props.buttonText}</button>
+          </form>
+        </div>
+      </>
+    )
+  },
+  CodeBlock: props => {
+    return <CodeblockCustom content={props.children} language={props.language} />
+  }
+}
 
 export default function Home (props) {
   let getBlogItem;
@@ -33,7 +56,7 @@ export default function Home (props) {
         {(getBlogItem?.blocks || []).map((block, b) => (
           <div className='prose max-w-none pb-4 dark:prose-dark text-justify'key={uuidv4()}>
               <article style={{ flex: 1 }}>
-                <TinaMarkdown content={block.block} />
+                <TinaMarkdown content={block.block} components={pageComponents}/>
               </article>
           </div>
         ))}

@@ -3,13 +3,9 @@ import { client } from '../.tina/__generated__/client'
 import { v4 as uuidv4 } from 'uuid';
 import Head from 'next/head'
 import Link from 'next/link'
-import { Layout } from '../components/Layout';
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import useDeviceDetect from '../utils/utils'
 import { usePresence, motion } from "framer-motion";
 
 export default function Home (props) {
-  const { isMobile } = useDeviceDetect();
   const { data, isLoading } = useTina({
     query: props.query,
     variables: props.variables,
@@ -27,28 +23,30 @@ export default function Home (props) {
           <meta name='og:title' content='A personal blog' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
-        <Layout home>
+        <>
           {(data.page.rows || []).map((row, i) => (
             <ListItem>
               <Link href={`/blog/${row.title}`} key={uuidv4()}>
                 <a className='cursor-pointer'>
-                  <h1 className='text-5xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
+                  <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
                     {row.title}
-                  </h1>
-                  {(row?.blocks || []).map((block, b) => (
-                    <div className={(isMobile ? '' : 'truncate') + ' prose max-w-none pb-4 dark:prose-dark text-justify'} key={uuidv4()}>
-                      <article style={{ flex: 1 }}>
-                        <TinaMarkdown content={block.block} />
-                      </article>
-                    </div>
-                  ))}
+                  </h1>              
                 </a>
               </Link>
+              {(row.tags || []).map((tagItem, i) => (
+                <span className="inline-block cursor-pointer mt-2 mr-1">
+                  <span
+                    className="bg-indigo-100 text-indigo-800 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium"
+                  >
+                    {tagItem}
+                  </span>
+                </span>
+              ))}
             </ListItem>
           ))}
           {/*DEBUG*/}
           {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-        </Layout>
+        </>
       </>
     )
   }

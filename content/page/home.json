@@ -1,30 +1,15 @@
 {
   "rows": [
     {
-      "title": "Third post",
+      "title": "Good practices in React",
       "blocks": [
         {
-          "title": "Third post",
-          "block": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In venenatis lacinia leo ac facilisis. Pellentesque eget auctor ipsum. Ut non euismod magna. Proin lacinia odio at justo congue lacinia. Sed at hendrerit massa, vitae pulvinar sem. Nullam faucibus pharetra dolor, vitae scelerisque purus lobortis in. Donec sagittis purus ut condimentum sagittis. Donec posuere sollicitudin odio et vehicula. Cras sagittis nisi in orci porttitor, a viverra ligula dapibus. Cras sed velit quis tellus elementum finibus.\n"
+          "block": "Clean code is always appreciated. In JavaScript, you can adopt ES6 syntax to make your code cleaner.\n\n### Use an object for update multiple states at the same time\n\n<CodeBlock\n  children=\"const [state, setState] = useState({\n     gender: &#x22;&#x22;,\n     name: &#x22;&#x22;,\n     age: 23\n  });\n\n  const onClick = () => {\n     setState((prevState) => ({\n       ...prevState,\n       age: prevState.age + 1,\n       name: &#x22;John&#x22;,\n       gender: 'male',\n     }));\n  };\"\n  language=\"jsx\"\n/>\n\n"
         }
-      ]
-    },
-    {
-      "title": "Second Post",
-      "blocks": [
-        {
-          "title": "Is a second post",
-          "block": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n"
-        }
-      ]
-    },
-    {
-      "title": "Hi there",
-      "blocks": [
-        {
-          "title": "Entrada imatge i text",
-          "block": "I am a Front End developer with industry experience building websites and web applications.&#x20;\nI specialize in JavaScript and have professional experience working with React and Redux.\nTake a look at my work or get in touch! [www.vfernandez.me](www.vfernandez.me \"my web!\")\n"
-        }
+      ],
+      "tags": [
+        "javascript",
+        "react"
       ]
     }
   ]

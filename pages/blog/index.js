@@ -6,6 +6,7 @@ import { client } from '../../.tina/__generated__/client'
 import { v4 as uuidv4 } from 'uuid';
 import useDeviceDetect from '../../utils/utils'
 import { Layout } from '../../components/Layout';
+import { CodeblockCustom } from '../../components/CodeblockCustom';
 
 const pageComponents = {
   NewsletterSignup: props => {
@@ -23,6 +24,9 @@ const pageComponents = {
         </div>
       </>
     )
+  },
+  CodeBlock: props => {
+    return <CodeblockCustom content={props.children} language={props.language} />
   }
 }
 
@@ -56,7 +60,7 @@ export default function PostList (props) {
                   {(row?.blocks || []).map((block, b) => (
                     <div className='prose max-w-none pb-4 dark:prose-dark text-justify' key={uuidv4()}>
                         <article style={{ flex: 1 }}>
-                          <TinaMarkdown /*components={pageComponents}*/ content={block.block} />
+                          <TinaMarkdown components={pageComponents} content={block.block} />
                         </article>
                     </div>
                   ))}
@@ -75,7 +79,7 @@ export default function PostList (props) {
                 {(row?.blocks || []).map((block, b) => (
                   <div className='prose max-w-none pb-4 dark:prose-dark text-justify' key={uuidv4()}>
                       <article style={{ flex: 1 }}>
-                        <TinaMarkdown /*components={pageComponents}*/ content={block.block} />
+                        <TinaMarkdown components={pageComponents} content={block.block} />
                       </article>
                   </div>
                 ))}

@@ -24,7 +24,7 @@ export default {
           {
             type: 'object',
             name: 'blocks',
-            label: 'Blocks',
+            label: 'Bloc configurable per cada entrada',
             list: true,
             ui: {
               itemProps (item) {
@@ -59,10 +59,35 @@ export default {
                       }
                     ],
                   },
+                  {
+                    name: "CodeBlock",
+                    label: "blocs de codi",
+                    fields: [
+                      {
+                        name: "children",
+                        label: "Bloc de codi",
+                        type: "string",
+                        ui: {
+                          component: "textarea"
+                        }
+                      },
+                      {
+                        name: "language",
+                        label: "Llenguatge programació",
+                        type: "string",
+                      }
+                    ],
+                  },
                 ],
               }
             ]
           },
+          {
+            label: "Etiquetes",
+            name: "tags",
+            type: "string",
+            list: true
+          }
         ]
       }
     ]
