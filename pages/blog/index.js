@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import { useTina } from 'tinacms/dist/edit-state'
 import { TinaMarkdown } from "tinacms/dist/rich-text";
@@ -7,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useDeviceDetect from '../../utils/utils'
 import { Layout } from '../../components/Layout';
 import { CodeblockCustom } from '../../components/CodeblockCustom';
+import { MetaComponent } from '../../components/MetaComponent';
 
 const pageComponents = {
   NewsletterSignup: props => {
@@ -43,12 +43,7 @@ export default function PostList (props) {
     console.log(data.page.rows)
     return (
       <>
-        <Head>
-          <title>Blog</title>
-          <meta name='description' content='A personal blog' />
-          <meta name='og:title' content='A personal blog' />
-          <link rel='icon' href='/favicon.ico' />
-        </Head>
+        <MetaComponent />
         {isMobile && 
           <Layout>
             {(data.page.rows || []).map((row, i) => (

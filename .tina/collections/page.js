@@ -87,6 +87,14 @@ export default {
             name: "tags",
             type: "string",
             list: true
+          },
+          {
+            label: "Data",
+            name: "date",
+            type: "datetime",
+            ui: {
+              dateFormat: 'YYYY MM DD'
+            }
           }
         ]
       }

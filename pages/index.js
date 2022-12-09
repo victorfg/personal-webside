@@ -1,9 +1,10 @@
 import { useTina } from 'tinacms/dist/edit-state'
 import { client } from '../.tina/__generated__/client'
 import { v4 as uuidv4 } from 'uuid';
-import Head from 'next/head'
 import Link from 'next/link'
 import { usePresence, motion } from "framer-motion";
+import {DateCustomComponent} from '../components/DateCustomComponent'
+import { MetaComponent } from '../components/MetaComponent';
 
 export default function Home (props) {
   const { data, isLoading } = useTina({
@@ -17,15 +18,13 @@ export default function Home (props) {
   } else {
     return (
       <>
-        <Head>
-          <title>PersonalBlog</title>
-          <meta name='description' content='A personal blog' />
-          <meta name='og:title' content='A personal blog' />
-          <link rel='icon' href='/favicon.ico' />
-        </Head>
+        <MetaComponent />
         <>
           {(data.page.rows || []).map((row, i) => (
             <ListItem>
+              {row.date &&
+                <DateCustomComponent data={row.date}/>
+              }
               <Link href={`/blog/${row.title}`} key={uuidv4()}>
                 <a className='cursor-pointer'>
                   <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
@@ -34,7 +33,7 @@ export default function Home (props) {
                 </a>
               </Link>
               {(row.tags || []).map((tagItem, i) => (
-                <span className="inline-block cursor-pointer mt-2 mr-1">
+                <span className="inline-block cursor-pointer mt-1 mr-1">
                   <span
                     className="bg-indigo-100 text-indigo-800 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium"
                   >
