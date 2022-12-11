@@ -4,7 +4,7 @@
       "title": "Good practices in React",
       "blocks": [
         {
-          "block": "### Use an object for update multiple states\n\nReact state keeps track of the data which when changed triggers the React component to re-render.  The more data you have to keep track of across your app.\n\n<CodeBlock\n  children=\"const [state, setState] = useState({\n    gender: &#x22;&#x22;,\n    name: &#x22;&#x22;,\n    age: 23\n  });\n\n  const onClick = () => {\n   setState((prevState) => ({\n    ...prevState,\n    age: prevState.age + 1,\n    name: &#x22;John&#x22;,\n    gender: 'male',\n   }));\n  };\"\n  language=\"jsx\"\n/>\n\n### Avoid using indexes as key props\n\nWith keys, React can pinpoint which item has been changed, added, or removed from the array.\n\nIt is not recommended recommend using indexes for keys if the order of items may change. \n\n<CodeBlock\n  children=\"const todoItems = todos.map((todo) =>\n    <li key={todo.id}>\n     {todo.text}\n    </li>\n  );\"\n/>\n\n[https://reactjs.org/docs/lists-and-keys.html](https://reactjs.org/docs/lists-and-keys.html \"\")\n\n### Use object destructuring for props\n\nIt's cleaner and easy to read\n\n<CodeBlock\n  children=\"const Button = ({text}) => {\n    return <button>{text}</button>;\n  };\"\n/>\n\n"
+          "block": "### Use an object for update multiple states\n\nReact state keeps track of the data which when changed triggers the React component to re-render.  The more data you have to keep track of across your app.\n\n"
         }
       ],
       "tags": [
@@ -13,5 +13,10 @@
       ],
       "date": "2022-12-07T23:00:00.000Z"
     }
-  ]
+  ],
+  "_collection": "page",
+  "_keepTemplateKey": false,
+  "_template": "page",
+  "_relativePath": "home.json",
+  "_id": "content/page/home.json"
 }
