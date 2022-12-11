@@ -4,7 +4,7 @@
       "title": "Good practices in React",
       "blocks": [
         {
-          "block": "### Use an object for update multiple states\n\nReact state keeps track of the data which when changed triggers the React component to re-render.  The more data you have to keep track of across your app.\n\n"
+          "block": "### Use an object for update multiple states\n\nReact state keeps track of the data which when changed triggers the React component to re-render.  The more data you have to keep track of across your app.\n\ngdfgdfgdfg\n\ngdsfg\n\nfdg\n\ngdf\n\ngdfg\n\ndfg\n\nfdg\n\ndfg\n\ndfg\n\n"
         }
       ],
       "tags": [
