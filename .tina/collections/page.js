@@ -44,22 +44,6 @@ export default {
                 name: 'block',
                 templates: [
                   {
-                    name: "NewsletterSignup",
-                    label: "Newsletter Sign Up",
-                    fields: [
-                      {
-                        name: "children",
-                        label: "CTA",
-                        type: "rich-text",
-                      },
-                      {
-                        name: "buttonText",
-                        label: "Button Text",
-                        type: "string",
-                      }
-                    ],
-                  },
-                  {
                     name: "CodeBlock",
                     label: "blocs de codi",
                     fields: [

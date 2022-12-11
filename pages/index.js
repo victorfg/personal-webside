@@ -1,46 +1,57 @@
 import { useTina } from 'tinacms/dist/edit-state'
 import { client } from '../.tina/__generated__/client'
-import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link'
-import { usePresence, motion } from "framer-motion";
 import {DateCustomComponent} from '../components/DateCustomComponent'
 import { MetaComponent } from '../components/MetaComponent';
+import { ListItem } from '../components/Animations'
+import { useEffect } from 'react';
+import useDeviceDetect from '../utils/utils'
 
 export default function Home (props) {
+  const { isMobile } = useDeviceDetect();
   const { data, isLoading } = useTina({
     query: props.query,
     variables: props.variables,
     data: props.data
   })
 
+  useEffect(() => {
+    document.querySelector(".mb-auto").classList.add('position-relative');
+    document.querySelector(".footer-main").classList.add('position-bottom');
+  });
+
   if (isLoading){
     return <div>Loading...</div>
   } else {
     return (
       <>
-        <MetaComponent />
+        <MetaComponent titleMeta={'CodingPosts'}/>
         <>
           {(data.page.rows || []).map((row, i) => (
-            <ListItem>
-              {row.date &&
-                <DateCustomComponent data={row.date}/>
-              }
-              <Link href={`/blog/${row.title}`} key={uuidv4()}>
-                <a className='cursor-pointer'>
-                  <h1 className='text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
-                    {row.title}
-                  </h1>              
-                </a>
-              </Link>
-              {(row.tags || []).map((tagItem, i) => (
-                <span className="inline-block cursor-pointer mt-1 mr-1">
-                  <span
-                    className="bg-indigo-100 text-indigo-800 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium"
-                  >
-                    {tagItem}
+            <ListItem key={'postItem_'+ i}>
+              <div className={isMobile ? '' : 'ml-3'}>
+                {row.date &&
+                  <span>
+                    <DateCustomComponent data={row.date}/>
                   </span>
-                </span>
-              ))}
+                }
+                <Link href={`/blog/${row.title}`} legacyBehavior>
+                  <a className='cursor-pointer'>
+                    <h1 className='p-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
+                      {row.title}
+                    </h1>              
+                  </a>
+                </Link>
+                {(row.tags || []).map((tagItem, i) => (
+                  <span key={tagItem + '_' + i} className="inline-block cursor-pointer mt-1 mr-1">
+                    <span
+                      className="bg-indigo-100 text-indigo-800 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium"
+                    >
+                      {tagItem}
+                    </span>
+                  </span>
+                ))}
+              </div>
             </ListItem>
           ))}
           {/*DEBUG*/}
@@ -49,35 +60,6 @@ export default function Home (props) {
       </>
     )
   }
-}
-
-const transition = { ease: "easeInOut", duration: 0.4 }
-
-function ListItem({ children }) {
-  const [isPresent, safeToRemove] = usePresence()
-
-  const animations = {
-    layout: true,
-    initial: 'out',
-    style: {
-      position: isPresent ? 'static' : 'absolute'
-    },
-    animate: isPresent ? 'in' : 'out',
-    whileTap: 'tapped',
-    variants: {
-      in: { scaleY: 1, opacity: 1 },
-      out: { scaleY: 0, opacity: 0, zIndex: -1 },
-      tapped: { scale: 0.98, opacity: 0.5, transition: { duration: 2.5 } }
-    },
-    onAnimationComplete: () => !isPresent && safeToRemove(),
-    transition
-  }
-
-  return (
-    <motion.h2 {...animations}>
-      {children}
-    </motion.h2>
-  )
 }
 
 export const getStaticProps = async () => {

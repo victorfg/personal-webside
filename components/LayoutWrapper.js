@@ -122,7 +122,7 @@ const LayoutWrapper = ({ children }) => {
             </div>
           </header>
           </motion.div>
-          <main className='mb-auto'>{children}</main>
+          <main className='mb-auto' id="style-scroll-custom">{children}</main>
         </div>
       </SectionContainer>
     )

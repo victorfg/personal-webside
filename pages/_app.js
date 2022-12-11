@@ -1,5 +1,6 @@
 import TinaProvider from '../.tina/components/TinaDynamicProvider'
 import LayoutWrapper from '../components/LayoutWrapper'
+import {Footer} from '../components/Footer'
 import Script from 'next/script'
 import '../styles/tailwind.css'
 import '../styles/custom.css'
@@ -28,12 +29,10 @@ const App = ({ Component, pageProps }) => {
     />
 
     <ThemeProvider attribute='class' defaultTheme={siteMetadata.theme}>
-      <Head>
-        <meta content='width=device-width, initial-scale=1' name='viewport' />
-      </Head>
       <TinaProvider>
         <LayoutWrapper>
           <Component {...pageProps} />
+          <Footer />
         </LayoutWrapper>
       </TinaProvider>
     </ThemeProvider>

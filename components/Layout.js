@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export const Layout = ({ children, home }) => {
   return (
-    <div className='default-layout'>
+    <div id="style-scroll-custom" className='default-layout'>
       <main>{children}</main>
       {!home && (
         <div>

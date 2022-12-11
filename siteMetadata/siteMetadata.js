@@ -1,12 +1,12 @@
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: '{personalBlog}',
-  description: 'A blog created with Next.js and Tailwind.css',
+  title: 'PersonalBlog',
+  author: 'Victor Fernandez Gayan',
+  headerTitle: '{...codingPosts}',
+  description: 'A blog created with Next.js, Tailwind.css and TINA',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
+  siteUrl: 'https://www.vfernandez.me/',
+  siteRepo: 'https://github.com/victorfg/personal-webside',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',

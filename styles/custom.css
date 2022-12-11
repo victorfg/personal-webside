@@ -4,3 +4,39 @@
   margin: 3rem auto 6rem;
 }
 
+.footer-main{
+  padding-bottom: 30px;
+}
+.position-bottom{
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .position-relative{
+    position: relative;
+    height: 100vh;
+  }
+  
+  html::-webkit-scrollbar-track{
+	  border: 1px solid white;
+  }
+
+  .dark html::-webkit-scrollbar-track{
+	  border: 10px solid #121212;
+  }
+
+  html::-webkit-scrollbar{
+	  width: 0px;
+  }
+
+  html::-webkit-scrollbar-thumb{
+	  background-color: #000000;	
+  }
+
+  .dark html::-webkit-scrollbar-thumb{
+	  background-color: white;	
+  }
+}
+
