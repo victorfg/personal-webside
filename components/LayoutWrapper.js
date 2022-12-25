@@ -118,7 +118,6 @@ const LayoutWrapper = ({ children }) => {
                 ))}
               </div>
               <ThemeSwitch />
-              <MobileNav />
             </div>
           </header>
           </motion.div>
