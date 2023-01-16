@@ -34,7 +34,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Victor - victor.fernandez.gayan@gmail.com
+victor.fernandez.gayan@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
