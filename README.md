@@ -16,7 +16,7 @@
   <p align="center">
     Build with Next.js and Tina
     <br />
-    <a href="https://vfernandez.me">View Demo</a>
+    <a href="https://vfernandez.me">View It</a>
   </p>
 </div>
 
