@@ -30,11 +30,6 @@ export default function Home (props) {
           {(data.page.rows || []).map((row, i) => (
             <ListItem key={'postItem_'+ i}>
               <div className={isMobile ? '' : 'ml-3'}>
-                {row.date &&
-                  <span>
-                    <DateCustomComponent data={row.date}/>
-                  </span>
-                }
                 <Link href={`/blog/${row.title}`} legacyBehavior>
                   <a className='cursor-pointer'>
                     <h1 className='p-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>
@@ -42,6 +37,11 @@ export default function Home (props) {
                     </h1>              
                   </a>
                 </Link>
+                {row.date &&
+                  <span className='p-3'>
+                    <DateCustomComponent data={row.date}/>
+                  </span>
+                }
                 {(row.tags || []).map((tagItem, i) => (
                   <span key={tagItem + '_' + i} className="inline-block cursor-pointer mt-1 mr-1">
                     <span

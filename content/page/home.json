@@ -1,10 +1,24 @@
 {
   "rows": [
     {
+      "title": "Clone object in Javascript",
+      "blocks": [
+        {
+          "title": "Clone object in javascript",
+          "block": "Often times, we want to create copies of variables for different purposes. There can be two different kinds of copies created - Shallow copy and Deep copy. Let's go over the terminologies and related examples:\n\n#### Shallow Copy\n\nShallow copying means it only copies the normal object values but nested values still use the reference to an original object. This means that modifications made in one place would affect both places.\n\nThere are two methods to do it. With Spread Operator (…) and Object.assign().\n\n<CodeBlock\n  children=\"const obj = {a:10,b:20,c:{d:30}};\n  const shallowClone = {...obj};\n  obj.c.d = 34; // updates the d property value\n  console.log(obj); // {a:10,b:20,c:{d:34}}\n  console.log(shallowClone); // {a:10,b:20,c:{d:34}}\"\n/>\n\n#### Deep Copy\n\nDeep copy method creates a copy where the source and the copied variable reference are completely different. It means that modifications made in one place would only affect the variable where we are making a change.\n\nif the objects/arrays are not nested, then we can achieve deep copy by using Spread (...) operator:\n\n<CodeBlock\n  children=\"const first_person = {\n  name: &#x22;Manel&#x22;,\n  age: 34,\n  }\n\n  const second_person = { ...first_person };\n\n  second_person.age = 35;\n\n  console.log(first_person.age); // output: 34\n  console.log(second_person.age); // output: 35\"\n/>\n\nIn case of nesting, the spread operator creates a shallow copy.\n\n###### If the objects/arrays are nested, then we can achieve deep copy by using JSON.parse() and JSON.stringify()\n\n\n\n<CodeBlock\n  children=\"const obj = {a:10,b:20,c:{d:30}};\n  const deepClone = JSON.parse(JSON.stringify(obj));\n  obj.c.d = 35;\n\n  // d value is changed\n  console.log(obj); // {a:10,b:20,c:{d:35}}\n\n  // d value remains unchanged because there is no reference\n  console.log(deepClone); // {a:10,b:20,c:{d:30}}\"\n/>\n\nReferences:\n\n* [https://developer.mozilla.org/en-US/docs/Glossary/Deep\\_copy](https://developer.mozilla.org/en-US/docs/Glossary/Deep_copy \"\")\n* [https://developer.mozilla.org/en-US/docs/Glossary/Shallow\\_copy](https://developer.mozilla.org/en-US/docs/Glossary/Shallow_copy \"\")\n\n"
+        }
+      ],
+      "tags": [
+        "object",
+        "javascript"
+      ],
+      "date": "2023-02-13T23:00:00.000Z"
+    },
+    {
       "title": "Good practices in React",
       "blocks": [
         {
-          "block": "### *Use an object for update multiple states*\n\nReact state keeps track of the data which when changed triggers the React component to re-render.  The more data you have to keep track of across your app.\n\n<CodeBlock\n  children=\"const [state, setState] = useState({\n    gender: &#x22;&#x22;,\n    name: &#x22;&#x22;,\n    age: 23\n  });\n\n  const onClick = () => {\n    setState((prevState) => ({\n      ...prevState,\n      age: prevState.age + 1,\n      name: &#x22;John&#x22;,\n      gender: 'male',\n    }));\n  };\"\n  language=\"jsx\"\n/>\n\n### *Avoid using indexes as key props*\n\nWith keys, React can point which item has been changed, added, or removed from the array.\n\nIt is not recommended recommend using indexes for keys if the order of items may change. \n\n<CodeBlock\n  children=\"const todoItems = todos.map((todo) =>\n    <li key={todo.id}>\n      {todo.text}\n    </li>\n  );\"\n/>\n\n[https://reactjs.org/docs/lists-and-keys.html](https://reactjs.org/docs/lists-and-keys.html \"\")\n\n### *Use object destructuring for props*\n\nIt's cleaner and easy to read\n\n<CodeBlock\n  children=\"const Button = ({text}) => {\n    return <button>{text}</button>;\n  };\"\n/>\n\n\n\n### *Use Object Literals*\n\nIt's make our code more readable.\n\nIn this example we can't use ternary because there are more than two options and it's better to start using if's.\n\n<CodeBlock\n  children=\"const {type} = animals\n\n  const components = {\n    LION: AdminUser,\n    CAT: EmployeeUser,\n    DOG: NormalUser\n  };\n\n  const Component = components[type];\n\n  return <Component />;\"\n/>\n\n\n\n### *Keep render as clean as possible*\n\nMinimum logic inside render components.\n\n<CodeBlock\n  children=\"const getUsers = () => dispatch(ACTION_GET_USERS)\n\n  return (\n    <button onClick={getUsers}>  \n      getUsers Button\n    </button>  \n  )\"\n/>\n\n\n\n### *Use Template Literals*\n\nTry to avoid using string concatenation.\n\n<CodeBlock\n  children=\"const animalDetails = `${animal.name} lives in ${animal.country} and eats ${animal.food}`\n\n  return (\n    <div> {animalDetails} </div>  \n  )\"\n/>\n\n\n\n### *Conclusion*\n\nCongratulations if you’ve made it this far! I hope you learned a thing or two from this article.\n\nI hope you have a wonderful day!\n"
+          "block": "### *Use an object for update multiple states*\n\nReact state keeps track of the data which when changed triggers the React component to re-render.  The more data you have to keep track of across your app.\n\n<CodeBlock\n  children=\"const [state, setState] = useState({\n  gender: &#x22;&#x22;,\n  name: &#x22;&#x22;,\n  age: 23\n  });\n\n  const onClick = () => {\n  setState((prevState) => ({\n  ...prevState,\n  age: prevState.age + 1,\n  name: &#x22;John&#x22;,\n  gender: 'male',\n  }));\n  };\"\n  language=\"jsx\"\n/>\n\n### *Avoid using indexes as key props*\n\nWith keys, React can point which item has been changed, added, or removed from the array.\n\nIt is not recommended recommend using indexes for keys if the order of items may change. \n\n<CodeBlock\n  children=\"const todoItems = todos.map((todo) =>\n  <li key={todo.id}>\n  {todo.text}\n  </li>\n  );\"\n/>\n\n[https://reactjs.org/docs/lists-and-keys.html](https://reactjs.org/docs/lists-and-keys.html \"\")\n\n### *Use object destructuring for props*\n\nIt's cleaner and easy to read\n\n<CodeBlock\n  children=\"const Button = ({text}) => {\n  return <button>{text}</button>;\n  };\"\n/>\n\n### *Use Object Literals*\n\nIt's make our code more readable.\n\nIn this example we can't use ternary because there are more than two options and it's better to start using if's.\n\n<CodeBlock\n  children=\"const {type} = animals\n\n  const components = {\n  LION: AdminUser,\n  CAT: EmployeeUser,\n  DOG: NormalUser\n  };\n\n  const Component = components[type];\n\n  return <Component />;\"\n/>\n\n### *Keep render as clean as possible*\n\nMinimum logic inside render components.\n\n<CodeBlock\n  children=\"const getUsers = () => dispatch(ACTION_GET_USERS)\n\n  return (\n  <button onClick={getUsers}>  \n  getUsers Button\n  </button>  \n  )\"\n/>\n\n### *Use Template Literals*\n\nTry to avoid using string concatenation.\n\n<CodeBlock\n  children=\"const animalDetails = `${animal.name} lives in ${animal.country} and eats ${animal.food}`\n\n  return (\n  <div> {animalDetails} </div>  \n  )\"\n/>\n\n### *Conclusion*\n\nCongratulations if you’ve made it this far! I hope you learned a thing or two from this article.\n\nI hope you have a wonderful day!\n"
         }
       ],
       "tags": [
@@ -13,10 +27,5 @@
       ],
       "date": "2022-12-09T23:00:00.000Z"
     }
-  ],
-  "_collection": "page",
-  "_keepTemplateKey": false,
-  "_template": "page",
-  "_relativePath": "home.json",
-  "_id": "content/page/home.json"
+  ]
 }
