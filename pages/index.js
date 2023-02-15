@@ -29,7 +29,7 @@ export default function Home (props) {
         <>
           {(data.page.rows || []).map((row, i) => (
             <ListItem key={'postItem_'+ i}>
-              <div className={isMobile ? '' : 'ml-3'}>
+              <div className={isMobile ? 'mt-10' : 'ml-3 mt-5'}>
                 <Link href={`/blog/${row.title}`} legacyBehavior>
                   <a className='cursor-pointer'>
                     <h1 className='p-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100'>

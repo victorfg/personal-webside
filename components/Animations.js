@@ -19,7 +19,7 @@ export const ListItem = ({children}) => {
       tapped: { scale: 0.98, opacity: 0.5, transition: { duration: 2.5 } }
     },
     onAnimationComplete: () => !isPresent && safeToRemove(),
-    transitionEaseInOut
+    transition:transitionEaseInOut
   }
 
   return (

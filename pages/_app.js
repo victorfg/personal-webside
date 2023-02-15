@@ -1,4 +1,5 @@
 import TinaProvider from '../.tina/components/TinaDynamicProvider'
+import NextNProgress from 'nextjs-progressbar';
 import LayoutWrapper from '../components/LayoutWrapper'
 import {Footer} from '../components/Footer'
 import Script from 'next/script'
@@ -31,6 +32,7 @@ const App = ({ Component, pageProps }) => {
     <ThemeProvider attribute='class' defaultTheme={siteMetadata.theme}>
       <TinaProvider>
         <LayoutWrapper>
+          <NextNProgress/>
           <Component {...pageProps} />
           <Footer />
         </LayoutWrapper>
