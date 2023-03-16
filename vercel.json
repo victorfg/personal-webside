@@ -6,8 +6,7 @@
       "use": "@now/next",
       "config": {
         "maxLambdaSize": "50mb"
-      },
-      "build": "next build --global-next-config=next.config.mjs"
+      }
     }
   ],
   "routes": [
@@ -18,5 +17,8 @@
   ],
   "env": {
     "NODE_OPTIONS": "--enable-source-maps --max_old_space_size=256"
+  },
+  "build": {
+    "command": "next build --global-next-config=next.config.mjs"
   }
 }
