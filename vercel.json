@@ -2,17 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
+      "src": "next.config.mjs",
       "use": "@vercel/node",
       "config": {
         "maxLambdaSize": "50mb"
-      }
-    },
-    {
-      "src": "next.config.mjs",
-      "use": "@vercel/next",
-      "config": {
-        "maxLambdaSize": "50mb"
+      },
+      "env": {
+        "NODE_OPTIONS": "--enable-source-maps"
       }
     }
   ],
@@ -21,8 +17,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "NODE_OPTIONS": "--enable-source-maps --max_old_space_size=256"
-  }
+  ]
 }
