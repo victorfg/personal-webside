@@ -7,7 +7,12 @@
       "config": {
         "maxLambdaSize": "50mb"
       },
-      "command": "next build --global-next-config=next.config.mjs",
+      "build": {
+        "command": "next build --global-next-config=next.config.mjs",
+        "env": {
+          "NODE_OPTIONS": "--enable-source-maps --max_old_space_size=256"
+        }
+      },
       "output": "public"
     }
   ],
