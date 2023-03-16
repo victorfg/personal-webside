@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.mjs",
+      "use": "@now/next",
+      "config": {
+        "maxLambdaSize": "50mb"
+      },
+      "buildCommand": "next build --global-next-config=next.config.mjs",
+      "output": "public"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
