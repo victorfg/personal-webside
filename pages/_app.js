@@ -36,9 +36,9 @@ const App = ({ Component, pageProps }) => {
           <LayoutWrapper>
             <NextNProgress />
             <MetaComponent
-              titleMeta={"CodingPosts"}
-              description={"Personal Blog about frontend development"}
-              keywords={"react, frontend development"}
+              titleMeta="CodingPosts"
+              description="Explore the world of Frontend Development with insightful articles and tutorials on my Personal Blog"
+              keywords="react, frontend development"
             />
             <Component {...pageProps} />
             <Footer />

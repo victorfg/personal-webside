@@ -1,5 +1,5 @@
 import Head from "next/head";
-export const MetaComponent = ({ titleMeta, description, keyword }) => {
+export const MetaComponent = ({ titleMeta, description, keywords }) => {
   return (
     <Head>
       <title>{titleMeta}</title>
@@ -11,7 +11,7 @@ export const MetaComponent = ({ titleMeta, description, keyword }) => {
       />
       <meta name="description" content={description} />
       <meta name="og:title" content={description} />
-      <meta name="keywords" content={keyword} />
+      <meta name="keywords" content={keywords} />
       <meta name="author" content="Víctor Fernandez Gayan" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
