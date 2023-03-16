@@ -2,13 +2,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "next.config.mjs",
-      "use": "@now/next",
+      "src": "package.json",
+      "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb",
-        "build": {
-          "command": "next build --global-next-config=next.config.mjs"
-        }
+        "maxLambdaSize": "50mb"
+      }
+    },
+    {
+      "src": "next.config.mjs",
+      "use": "@vercel/next",
+      "config": {
+        "maxLambdaSize": "50mb"
       }
     }
   ],
