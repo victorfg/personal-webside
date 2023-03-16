@@ -12,8 +12,7 @@
         "env": {
           "NODE_OPTIONS": "--enable-source-maps --max_old_space_size=256"
         }
-      },
-      "output": "public"
+      }
     }
   ],
   "routes": [
