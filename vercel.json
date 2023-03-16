@@ -7,7 +7,7 @@
       "config": {
         "maxLambdaSize": "50mb"
       },
-      "buildCommand": "next build --global-next-config=next.config.mjs",
+      "command": "next build --global-next-config=next.config.mjs",
       "output": "public"
     }
   ],
