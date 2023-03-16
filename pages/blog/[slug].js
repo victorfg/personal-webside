@@ -7,6 +7,7 @@ import { CodeblockCustom } from "../../components/CodeblockCustom";
 import { DateCustomComponent } from "../../components/DateCustomComponent";
 import { MetaComponent } from "../../components/MetaComponent";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const pageComponents = {
   CodeBlock: (props) => {
@@ -24,10 +25,20 @@ export default function Home(props) {
     data: props.data,
   });
 
+  const router = useRouter();
+
   useEffect(() => {
     document.querySelector(".mb-auto").classList.remove("position-relative");
     document.querySelector(".footer-main").classList.remove("position-bottom");
   });
+
+  useEffect(() => {
+    const slug = router.query.slug;
+    const isValidSlug = data.page.rows.some((row) => row.title === slug);
+    if (!isValidSlug) {
+      router.push("/404");
+    }
+  }, [router.query.slug, data.page.rows]);
 
   if (typeof window !== "undefined") {
     getBlogItem = getItemFromArray(window.location.pathname, data.page.rows);
