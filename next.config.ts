@@ -1,4 +1,6 @@
-module.exports = {
+import { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
@@ -12,3 +14,5 @@ module.exports = {
     return config;
   },
 };
+
+export default nextConfig;
