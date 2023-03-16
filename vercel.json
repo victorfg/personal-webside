@@ -5,10 +5,10 @@
       "src": "next.config.mjs",
       "use": "@now/next",
       "config": {
-        "maxLambdaSize": "50mb"
-      },
-      "build": {
-        "command": "next build --global-next-config=next.config.mjs"
+        "maxLambdaSize": "50mb",
+        "build": {
+          "command": "next build --global-next-config=next.config.mjs"
+        }
       }
     }
   ],
