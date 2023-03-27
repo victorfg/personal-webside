@@ -92,9 +92,13 @@ export default function Home(props) {
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await client.queries.pageConnection();
-  const paths = data.pageConnection.edges.map((x) => {
-    return { params: { slug: x.node._sys.filename } };
+  const { data } = await client.queries.page({
+    relativePath: "home.json",
+  });
+
+  // Asegúrate de que estás accediendo a la estructura de datos correcta aquí
+  const paths = data.page.rows.map((x) => {
+    return { params: { slug: x.title } };
   });
 
   return {
