@@ -7,7 +7,6 @@ import { CodeblockCustom } from "../../components/CodeblockCustom";
 import { DateCustomComponent } from "../../components/DateCustomComponent";
 import { MetaComponent } from "../../components/MetaComponent";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 
 const pageComponents = {
   CodeBlock: (props) => {
@@ -25,20 +24,10 @@ export default function Home(props) {
     data: props.data,
   });
 
-  const router = useRouter();
-
   useEffect(() => {
     document.querySelector(".mb-auto").classList.remove("position-relative");
     document.querySelector(".footer-main").classList.remove("position-bottom");
   });
-
-  useEffect(() => {
-    const slug = router.query.slug;
-    const isValidSlug = data.page.rows.some((row) => row.title === slug);
-    if (!isValidSlug) {
-      router.push("/404");
-    }
-  }, [router.query.slug, data.page.rows]);
 
   if (typeof window !== "undefined") {
     getBlogItem = getItemFromArray(window.location.pathname, data.page.rows);
@@ -92,13 +81,9 @@ export default function Home(props) {
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await client.queries.page({
-    relativePath: "home.json",
-  });
-
-  // Asegúrate de que estás accediendo a la estructura de datos correcta aquí
-  const paths = data.page.rows.map((x) => {
-    return { params: { slug: x.title } };
+  const { data } = await client.queries.pageConnection();
+  const paths = data.pageConnection.edges.map((x) => {
+    return { params: { slug: x.node._sys.filename } };
   });
 
   return {
