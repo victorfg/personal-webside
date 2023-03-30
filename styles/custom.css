@@ -12,13 +12,19 @@
 .posts-container {
   display: flex;
   flex-direction: column;
-  min-height: 80%;
+  min-height: 100%;
+  position: relative;
 }
 
 .pagination-container {
   margin-top: auto;
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 26vh;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .custom-pagination {
