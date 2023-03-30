@@ -1,42 +1,89 @@
-.default-layout{
+.default-layout {
   max-width: 36rem;
   padding: 0 1rem;
   margin: 3rem auto 6rem;
 }
 
-.footer-main{
-  padding-bottom: 30px;
-}
-.position-bottom{
+.position-bottom {
   position: absolute;
   bottom: 5px;
-  width: 100%;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 80%;
+}
+
+.pagination-container {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-pagination {
+  background-color: white;
+  color: black;
+}
+
+.pagination-button {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.pagination-button.active {
+  background-color: black;
+  color: white;
+}
+
+.main-content {
+  height: 87vh;
+}
+
+#content-posts {
+  text-align: center;
+}
+
+.center-social-mobile {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 15px;
 }
 
 @media (min-width: 640px) {
-  .position-relative{
+  .position-relative {
     position: relative;
     height: 100vh;
   }
-  
-  html::-webkit-scrollbar-track{
-	  border: 1px solid white;
+
+  html::-webkit-scrollbar-track {
+    border: 1px solid white;
   }
 
-  .dark html::-webkit-scrollbar-track{
-	  border: 10px solid #121212;
+  .dark html::-webkit-scrollbar-track {
+    border: 10px solid #121212;
   }
 
-  html::-webkit-scrollbar{
-	  width: 0px;
+  html::-webkit-scrollbar {
+    width: 0px;
   }
 
-  html::-webkit-scrollbar-thumb{
-	  background-color: #000000;	
+  html::-webkit-scrollbar-thumb {
+    background-color: #000000;
   }
 
-  .dark html::-webkit-scrollbar-thumb{
-	  background-color: white;	
+  .dark html::-webkit-scrollbar-thumb {
+    background-color: white;
+  }
+  .footer-main {
+    padding-bottom: 20px;
+    width: 100%;
   }
 }
-
