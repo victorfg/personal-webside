@@ -21,27 +21,7 @@ const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
     return pageNumbers;
   };
 
-  return (
-    <div className="custom-pagination">
-      {/*currentPage > 1 && (
-        <button
-          className="pagination-button"
-          onClick={() => handleClick(currentPage - 1)}
-        >
-          Previous
-        </button>
-      )*/}
-      {renderPageNumbers()}
-      {/*currentPage < totalPages && (
-        <button
-          className="pagination-button"
-          onClick={() => handleClick(currentPage + 1)}
-        >
-          Next
-        </button>
-      )*/}
-    </div>
-  );
+  return <div className="custom-pagination">{renderPageNumbers()}</div>;
 };
 
 export default CustomPagination;
