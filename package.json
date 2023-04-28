@@ -34,7 +34,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@tinacms/cli": "^0.61.8",
+    "@tinacms/cli": "^1.5.8",
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
     "autoprefixer": "^10.4.12",
