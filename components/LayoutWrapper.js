@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
 import ThemeSwitch from "../components/ThemeSwitch";
 import MobileNav from "../components/MobileNav";
@@ -101,7 +102,7 @@ const LayoutWrapper = ({ children }) => {
               </Link>
               <div className="flex items-center text-base leading-5">
                 <div className="hidden sm:block">
-                  {headerNavLinks.map((link) => (
+                  {headerNavLinks.map((link, i) => (
                     <Link key={link.title} href={link.href}>
                       <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
                         {link.title}
