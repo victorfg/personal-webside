@@ -1,7 +1,7 @@
 import { Layout } from "../../components/Layout";
 import { useTina } from "tinacms/dist/edit-state";
 import { client } from "../../.tina/__generated__/client";
-import { getItemFromArray } from "../../models/models";
+import { getItemFromArray } from "../../components/Utils";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { CodeblockCustom } from "../../components/CodeblockCustom";
 import { DateCustomComponent } from "../../components/DateCustomComponent";
@@ -33,8 +33,10 @@ export default function Home(props) {
   });
 
   useEffect(() => {
-    const slug = router.query.slug;
-    const isValidSlug = data.page.rows.some((row) => row.title === slug);
+    const slug = router.query.slug.replace(/-/g, " ");
+    const isValidSlug = data.page.rows.some(
+      (row) => row.title.toLowerCase() === slug.toLowerCase()
+    );
     if (!isValidSlug) {
       router.push("/404");
     }
@@ -96,7 +98,6 @@ export const getStaticPaths = async () => {
     relativePath: "home.json",
   });
 
-  // Asegúrate de que estás accediendo a la estructura de datos correcta aquí
   const paths = data.page.rows.map((x) => {
     return { params: { slug: x.title } };
   });

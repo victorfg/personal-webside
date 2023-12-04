@@ -6,6 +6,7 @@ import useDeviceDetect from "../utils/utils";
 import { ListItem } from "../components/Animations";
 import { DateCustomComponent } from "../components/DateCustomComponent";
 import CustomPagination from "../components/CustomPagination";
+import { formatTitleForUrl } from "../components/Utils";
 
 export default function Home(props) {
   const { isMobile } = useDeviceDetect();
@@ -83,7 +84,7 @@ export default function Home(props) {
             <ListItem key={"postItem_" + i}>
               <div className={isMobile ? "mt-10" : "ml-3 mt-5"}>
                 <Link
-                  href={`/blog/${row.title}`}
+                  href={`/blog/${formatTitleForUrl(row.title)}`}
                   legacyBehavior
                   passHref
                   onError={() => {
