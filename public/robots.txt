@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Host: http://vfernandez.me
+Host: https://www.vfernandez.me
 
-Sitemap: http://vfernandez.me/sitemap.xml
+Sitemap: https://www.vfernandez.me/sitemap.xml
