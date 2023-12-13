@@ -1,9 +1,6 @@
-# *
 User-agent: *
 Allow: /
 
-# Host
-Host: https://www.vfernandez.me
+Host: http://vfernandez.me
 
-# Sitemaps
-Sitemap: https://www.vfernandez.me/sitemap.xml
+Sitemap: http://vfernandez.me/sitemap.xml
