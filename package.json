@@ -11,7 +11,7 @@
   },
   "description": "My personal Page",
   "engines": {
-    "node": "18.19.0"
+    "node": "21.4.0"
   },
   "dependencies": {
     "@fontsource/inter": "4.5.2",
