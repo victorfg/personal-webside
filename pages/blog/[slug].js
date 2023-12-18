@@ -1,5 +1,5 @@
 import { Layout } from "../../components/Layout";
-import { useTina } from "tinacms/dist/edit-state";
+import { useTina } from "tinacms/dist/react";
 import { client } from "../../.tina/__generated__/client";
 import { getItemFromArray } from "../../components/Utils";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
