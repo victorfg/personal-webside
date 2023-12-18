@@ -1,3 +1,4 @@
+import TinaProvider from "../.tina/components/TinaDynamicProvider";
 import { MetaComponent } from "../components/MetaComponent";
 import NextNProgress from "nextjs-progressbar";
 import LayoutWrapper from "../components/LayoutWrapper";
@@ -31,16 +32,18 @@ const App = ({ Component, pageProps }) => {
       />
 
       <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
-        <LayoutWrapper>
-          <NextNProgress />
-          <MetaComponent
-            titleMeta={"CodingPosts"}
-            description={"Personal Blog about frontend development"}
-            keywords={"react, frontend development"}
-          />
-          <Component {...pageProps} />
-          <Footer />
-        </LayoutWrapper>
+        <TinaProvider>
+          <LayoutWrapper>
+            <NextNProgress />
+            <MetaComponent
+              titleMeta={"CodingPosts"}
+              description={"Personal Blog about frontend development"}
+              keywords={"react, frontend development"}
+            />
+            <Component {...pageProps} />
+            <Footer />
+          </LayoutWrapper>
+        </TinaProvider>
       </ThemeProvider>
     </>
   );

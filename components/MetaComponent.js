@@ -3,7 +3,7 @@ export const MetaComponent = ({ titleMeta, description, keyword }) => {
   return (
     <Head>
       <title>{`${titleMeta} | Victor Fernandez Gayan`}</title>
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta
         name="viewport"

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { useTina } from "tinacms/dist/react";
+import { useTina } from "tinacms/dist/edit-state";
 import { client } from "../.tina/__generated__/client";
 import useDeviceDetect from "../utils/utils";
 import { ListItem } from "../components/Animations";
