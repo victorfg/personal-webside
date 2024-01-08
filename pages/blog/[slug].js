@@ -8,6 +8,7 @@ import { DateCustomComponent } from "../../components/DateCustomComponent";
 import { MetaComponent } from "../../components/MetaComponent";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Labels from "../../components/Labels";
 
 const pageComponents = {
   CodeBlock: (props) => {
@@ -19,6 +20,10 @@ const pageComponents = {
 
 export default function Home(props) {
   let getBlogItem = null;
+  let currentIndex = null;
+  let previousPost = null;
+  let nextPost = null;
+
   const { data, isLoading } = useTina({
     query: props.query,
     variables: props.variables,
@@ -44,6 +49,14 @@ export default function Home(props) {
 
   if (typeof window !== "undefined") {
     getBlogItem = getItemFromArray(window.location.pathname, data.page.rows);
+    currentIndex = data.page.rows.findIndex(
+      (row) => row.title.toLowerCase() === getBlogItem.title.toLowerCase()
+    );
+    previousPost = currentIndex > 0 ? data.page.rows[currentIndex - 1] : null;
+    nextPost =
+      currentIndex < data.page.rows.length - 1
+        ? data.page.rows[currentIndex + 1]
+        : null;
   }
 
   if (isLoading && !getBlogItem) {
@@ -57,7 +70,7 @@ export default function Home(props) {
           keywords={getBlogItem?.tags}
         />
 
-        <Layout>
+        <Layout previousPost={previousPost} nextPost={nextPost}>
           <h1 className="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {getBlogItem?.title}
           </h1>
@@ -67,9 +80,7 @@ export default function Home(props) {
               key={tagItem + "_" + i}
               className="inline-block cursor-pointer mt-1 ml-2"
             >
-              <span className="bg-indigo-100 text-indigo-800 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium">
-                {tagItem}
-              </span>
+              <Labels tagItem={tagItem} index={i} />
             </span>
           ))}
           {(getBlogItem?.blocks || []).map((block, i) => (

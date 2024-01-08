@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useEffect, useRef } from "react";
 import ThemeSwitch from "../components/ThemeSwitch";
 import MobileNav from "../components/MobileNav";
 import headerNavLinks from "../siteMetadata/headerNavLinks";
@@ -35,8 +35,8 @@ const LayoutWrapper = ({ children }) => {
 
   if (isMobile) {
     return (
-      <div className="flex h-screen flex-col justify-between">
-        <div className="header fixed w-full" ref={navRef}>
+      <div className="flex flex-col justify-between">
+        <div className="header fixed w-full z-10" ref={navRef}>
           <header
             className="flex items-center justify-between pb-6 lg:py-10 mt-4"
             ref={navRef}
@@ -58,7 +58,7 @@ const LayoutWrapper = ({ children }) => {
             <div className="flex items-center text-base leading-5">
               <div className="hidden sm:block">
                 {headerNavLinks.map((link) => (
-                  <Link key={link.title} href={link.href}>
+                  <Link key={uuidv4()} href={link.href}>
                     <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
                       {link.title}
                     </a>
@@ -71,14 +71,14 @@ const LayoutWrapper = ({ children }) => {
           </header>
         </div>
         <SectionContainer>
-          <main className="main-content mb-auto mt-20">{children}</main>
+          <main className="mb-auto mt-20">{children}</main>
         </SectionContainer>
       </div>
     );
   } else {
     return (
       <SectionContainer>
-        <div className="flex h-screen flex-col justify-between">
+        <div className="flex flex-col justify-between">
           <motion.div
             className="header"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -103,7 +103,7 @@ const LayoutWrapper = ({ children }) => {
               <div className="flex items-center text-base leading-5">
                 <div className="hidden sm:block">
                   {headerNavLinks.map((link, i) => (
-                    <Link key={link.title} href={link.href}>
+                    <Link key={uuidv4()} href={link.href}>
                       <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
                         {link.title}
                       </a>
@@ -114,9 +114,9 @@ const LayoutWrapper = ({ children }) => {
               </div>
             </header>
           </motion.div>
-          <main className="mb-auto" id="style-scroll-custom">
+          <div className="mb-auto" id="style-scroll-custom">
             {children}
-          </main>
+          </div>
         </div>
       </SectionContainer>
     );
@@ -124,11 +124,7 @@ const LayoutWrapper = ({ children }) => {
 };
 
 const SectionContainer = ({ children }) => {
-  return (
-    <div className="sm:mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-      {children}
-    </div>
-  );
+  return <main>{children}</main>;
 };
 
 export default LayoutWrapper;

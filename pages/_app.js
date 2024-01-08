@@ -33,16 +33,18 @@ const App = ({ Component, pageProps }) => {
 
       <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
         <TinaProvider>
-          <LayoutWrapper>
-            <NextNProgress />
-            <MetaComponent
-              titleMeta={"CodingPosts"}
-              description={"Personal Blog about frontend development"}
-              keywords={"react, frontend development"}
-            />
-            <Component {...pageProps} />
+          <div className="max-w-3xl mx-auto sm:px-6 xl:max-w-5xl xl:px-4">
+            <LayoutWrapper>
+              <NextNProgress />
+              <MetaComponent
+                titleMeta={"CodingPosts"}
+                description={"Personal Blog about frontend development"}
+                keywords={"react, frontend development"}
+              />
+              <Component {...pageProps} />
+            </LayoutWrapper>
             <Footer />
-          </LayoutWrapper>
+          </div>
         </TinaProvider>
       </ThemeProvider>
     </>

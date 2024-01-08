@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import useDeviceDetect from "../utils/utils";
+import { useIsHome, useIsLabelPage } from "../hooks/useNamePage";
 
 const SocialLink = ({ href, children }) => (
   <Link href={href}>
@@ -48,60 +48,63 @@ const SocialIcons = () => {
 };
 
 export const Footer = () => {
+  const isHome = useIsHome();
+  const isLabelPage = useIsLabelPage();
   const { isMobile } = useDeviceDetect();
   return (
-    <div className="footer-main">
-      {isMobile && <SocialIcons />}
-      <div className="sm:flex sm:items-center sm:justify-between text-center">
-        <span className="text-sm sm:text-center dark:text-gray-400">
-          © 2022
-          <Link href="https://www.vfernandez.me/">
-            <a target="_blank" className="hover:underline">
-              ...codingPosts
-            </a>
-          </Link>
-          . All Rights Reserved.
-        </span>
-        <div className="text-sm flex items-center">
-          <Image
-            src="/heart.png"
-            alt="Picture of the author"
-            width={25}
-            height={25}
-          />
-          <p>
-            made with
-            <Link href="https://reactjs.org/">
-              <a className="hover:underline" target="_blank">
-                {" "}
-                React
+    <footer>
+      <div className={`footer-main md:bottom-0 md:w-full md:mb-5`}>
+        {isMobile && <SocialIcons />}
+        <div className="sm:flex sm:items-center sm:justify-between text-center">
+          <span className="text-sm sm:text-center dark:text-gray-400">
+            © 2022
+            <Link href="/">
+              <a className="hover:underline">
+                ...codingPosts.
               </a>
             </Link>
-            ,
-            <Link href="https://nextjs.org/">
-              <a className="hover:underline" target="_blank">
-                {" "}
-                Next.js
-              </a>
-            </Link>
-            ,
-            <Link href="https://tina.io/">
-              <a className="hover:underline" target="_blank">
-                {" "}
-                TINA
-              </a>
-            </Link>{" "}
-            and
-            <Link href="https://tailwindcss.com/">
-              <a className="hover:underline" target="_blank">
-                {" "}
-                tailwindcss
-              </a>
-            </Link>
-          </p>
+          </span>
+          <div className="text-sm flex items-center justify-center">
+            <div className="mr-1 w-5 h-5">
+              <svg
+                fill="#000000"
+                width="20px"
+                height="20px"
+                viewBox="0 0 30 30"
+                xmlns="http://www.w3.org/2000/svg"
+                className="dark:fill-white"
+              >
+                <path d="M7.975 2c-2.235.116-4.365 1.203-5.82 2.89C.7 6.57 0 8.786 0 11c0 1.938.697 3.816 1.646 5.46.95 1.644 2.19 3.077 3.5 4.394 2.824 2.833 6.08 5.232 9.622 7.09.145.076.32.076.464 0 3.543-1.858 6.798-4.257 9.622-7.09 1.31-1.317 2.55-2.75 3.5-4.393C29.304 14.817 30 12.94 30 11c0-2.22-.7-4.428-2.154-6.11C26.39 3.202 24.26 2.115 22.026 2c-1.516-.078-3.045.286-4.362 1.04-1.097.626-1.975 1.558-2.664 2.614-.69-1.056-1.567-1.988-2.664-2.615C11.02 2.285 9.49 1.92 7.976 2zm.05 1c1.32-.068 2.665.25 3.813.906 1.148.656 2.107 1.652 2.72 2.824.186.36.698.36.885 0 .612-1.172 1.57-2.168 2.72-2.824 1.147-.656 2.49-.974 3.812-.906 1.942.1 3.837 1.062 5.115 2.54C28.37 7.023 29 9 29 11c0 1.73-.628 3.43-1.512 4.96-.885 1.535-2.064 2.904-3.342 4.186-2.686 2.697-5.788 4.975-9.146 6.766-3.358-1.79-6.46-4.07-9.146-6.766-1.278-1.282-2.457-2.65-3.342-4.185C1.628 14.43 1 12.73 1 11c0-2 .63-3.978 1.91-5.46C4.188 4.063 6.083 3.1 8.025 3z" />
+              </svg>
+            </div>
+
+            <p>
+              made with
+              <Link href="https://nextjs.org/">
+                <a className="hover:underline" target="_blank">
+                  {" "}
+                  Next.js
+                </a>
+              </Link>
+              ,
+              <Link href="https://tina.io/">
+                <a className="hover:underline" target="_blank">
+                  {" "}
+                  TINA
+                </a>
+              </Link>{" "}
+              and
+              <Link href="https://tailwindcss.com/">
+                <a className="hover:underline" target="_blank">
+                  {" "}
+                  tailwindcss
+                </a>
+              </Link>
+            </p>
+          </div>
+          {!isMobile && <SocialIcons />}
         </div>
-        {!isMobile && <SocialIcons />}
       </div>
-    </div>
+    </footer>
   );
 };

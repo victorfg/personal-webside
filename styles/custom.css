@@ -4,27 +4,19 @@
   margin: 3rem auto 6rem;
 }
 
-.position-bottom {
-  position: absolute;
-  bottom: 5px;
-}
-
 .posts-container {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
   position: relative;
+  align-items: center;
 }
 
 .pagination-container {
-  margin-top: auto;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  position: absolute;
   bottom: 26vh;
-  position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .custom-pagination {
@@ -49,14 +41,6 @@
   color: white;
 }
 
-.main-content {
-  height: 87vh;
-}
-
-#content-posts {
-  text-align: center;
-}
-
 .center-social-mobile {
   display: flex;
   justify-content: center;
@@ -65,6 +49,12 @@
 
 .z-index-1 {
   z-index: -1;
+}
+
+.searcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Dark theme */
@@ -112,9 +102,5 @@
 
   .dark html::-webkit-scrollbar-thumb {
     background-color: white;
-  }
-  .footer-main {
-    padding-bottom: 20px;
-    width: 100%;
   }
 }

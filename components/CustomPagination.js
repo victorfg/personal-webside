@@ -1,27 +1,37 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
-const CustomPagination = ({ currentPage, totalPages, onPageChange }) => {
-  const handleClick = (pageNumber) => {
-    onPageChange(pageNumber);
-  };
+const CustomPagination = ({
+  totalPosts,
+  postsPerPage,
+  setCurrentPage,
+  currentPage,
+}) => {
+  let pages = [];
 
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          className={`pagination-button${currentPage === i ? " active" : ""}`}
-          onClick={() => handleClick(i)}
-        >
-          {i}
-        </button>
-      );
-    }
-    return pageNumbers;
-  };
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pages.push(i);
+  }
 
-  return <div className="custom-pagination">{renderPageNumbers()}</div>;
+  return (
+    <div className="pagination-container">
+      <div className="custom-pagination">
+        {pages.map((page, index) => {
+          return (
+            <button
+              key={uuidv4()}
+              onClick={() => setCurrentPage(page)}
+              className={`pagination-button${
+                currentPage === page ? " active" : ""
+              }`}
+            >
+              {page}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default CustomPagination;
