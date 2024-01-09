@@ -4,6 +4,7 @@ import { useTina } from "tinacms/dist/edit-state";
 import { client } from "../../.tina/__generated__/client";
 import Link from "next/link";
 import { formatTitleForUrl } from "../../components/Utils";
+import { v4 as uuidv4 } from "uuid";
 
 export default function TagPage(props) {
   const { data, isLoading } = useTina({
@@ -34,32 +35,27 @@ export default function TagPage(props) {
       </h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredPosts.map((post, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out dark:text-white bg-transparent border"
+          <Link
+            key={uuidv4()}
+            href={`/blog/${formatTitleForUrl(post.title)}`}
+            legacyBehavior
+            passHref
+            onError={() => {
+              window.location.href = "/404";
+            }}
           >
-            <div className="p-6">
-              <h2 className="font-semibold text-xl mb-2">{post.title}</h2>
-              <p className="text-gray-700 dark:text-gray-400">{post.summary}</p>
-              <div className="mt-4">
-                <Link
-                  href={`/blog/${formatTitleForUrl(post.title)}`}
-                  legacyBehavior
-                  passHref
-                  onError={() => {
-                    window.location.href = "/404";
-                  }}
-                >
-                  <a
-                    href="#"
-                    className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
-                  >
-                    Read more
-                  </a>
-                </Link>
+            <div className="cursor-pointer bg-white text-black rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out dark:bg-transparent border text-white">
+              <div className="p-6">
+                <h2 className="text-black font-semibold text-xl mb-2 dark:text-white">
+                  {post.title}
+                </h2>
+                <p className="text-gray-700 dark:text-gray-400">
+                  {post.summary}
+                </p>
+                <div className="mt-4"></div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

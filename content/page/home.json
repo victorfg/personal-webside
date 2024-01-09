@@ -1,6 +1,19 @@
 {
   "rows": [
     {
+      "title": "Git Strategies",
+      "summary": "Ship/Show/Ask is a branching strategy that combines the features of Pull Requests with the ability to keep shipping changes.",
+      "blocks": [
+        {
+          "block": "![](/uploads/git.jpeg)\n\n###### **Pull requests** are widely used in software teams, offering excellent code review tools and services. However, they have downsides. They've shifted the focus away from quickly shipping features, as work-in-progress features delay integration. This creates problems addressed by Continuous Integration. Pull Requests sometimes stagnate, become overly complex, or leave contributors unsure of what to tackle next. Moreover, the sheer volume of PRs can lead to fatigue, resulting in less attention to code quality during reviews.\n\n### Ship / Show / Ask\n\n#### Ship\n\nThis approach aligns closely with Continuous Integration. It's like when you want to make a change, and you go ahead and implement it directly on your main development line. When you do this, you don't wait for someone else to push your change into the production environment. You don't ask for a formal code review. It's a straightforward process where you implement the change, employing all the regular Continuous Integration techniques to ensure it's safe and functional.\n\nThis method works effectively when:\n\n* You're adding a feature using a well-established pattern.\n* You're fixing a straightforward bug.\n* You're updating documentation.\n* You're enhancing your code based on received feedback.\n\n#### Show\n\nIn this scenario, you blend the Continuous Integration mindset with the advantages of Pull Requests. You make changes on a separate branch, create a Pull Request, and merge it without waiting for explicit approval. While you wait for automated checks like tests, code coverage, and preview environments, you don't stall for feedback to deploy your changes.\n\nThis method enables quick deployment while still fostering a platform for feedback and discussions. Your team receives notifications about your pull request and can review your work, providing feedback on your code or approach, asking questions, and gaining insights from your changes.\n\nThis approach is effective when:\n\n* Seeking feedback to enhance code quality.\n* Presenting a new approach or pattern.\n* Refactoring code and showcasing the improvements.\n* Demonstrating a unique bug fix and its solution.\n\n#### Ask\n\nWe're making our changes on a separate branch, then we open a Pull Request, and we take a moment to wait for feedback before merging those changes into the main code. This pause might happen because we're uncertain if we've chosen the best approach, or there might be some parts of the code that we're not entirely satisfied with and want suggestions for improvement. Sometimes, it could be an experiment, and we're curious about people's opinions.\n\nModern tools for reviewing code provide an excellent platform for this type of discussion. They allow an entire team to come together, review a Pull Request, and have discussions about it.\n\nThis approach works well when:\n\n* We're unsure if our approach will succeed.\n* We want opinions on a new way of doing things.\n* We need assistance to improve our work.\n* We're wrapping up for the day and plan to merge the next day.\n\noriginal article: [https://martinfowler.com/articles/ship-show-ask.html](https://martinfowler.com/articles/ship-show-ask.html)\n\nThanks for reading!\n\n"
+        }
+      ],
+      "tags": [
+        "Git"
+      ],
+      "date": "2024-01-08T23:00:00.000Z"
+    },
+    {
       "title": "React Context Provider Hell",
       "summary": "The 'Context Provider Hell' in React is a common issue faced by developers.",
       "blocks": [

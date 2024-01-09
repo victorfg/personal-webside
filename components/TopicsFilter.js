@@ -5,7 +5,7 @@ const TopicsFilter = ({ displayedPosts }) => {
     const tagCounts = {};
 
     displayedPosts.forEach((row) => {
-      row.tags.forEach((tag) => {
+      row.tags?.forEach((tag) => {
         tagCounts[tag] = (tagCounts[tag] || 0) + 1;
       });
     });
