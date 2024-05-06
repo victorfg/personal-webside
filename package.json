@@ -9,9 +9,6 @@
     "buildSitemap": "next build && next-sitemap"
   },
   "description": "My personal Page",
-  "engines": {
-    "node": "16.14.0"
-  },
   "dependencies": {
     "@apollo/client": "^3.8.8",
     "@fontsource/inter": "4.5.2",
