@@ -33,7 +33,7 @@ const App = ({ Component, pageProps }) => {
 
       <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
         <TinaProvider>
-          <div className="max-w-3xl mx-auto sm:px-6 xl:max-w-5xl xl:px-4">
+          <div className="sm:flex sm:flex-col sm:min-h-screen max-w-3xl mx-auto sm:px-6 xl:max-w-5xl xl:px-4 min-h-full" style={{marginTop: 0, paddingTop: 0}}>
             <LayoutWrapper>
               <NextNProgress />
               <MetaComponent

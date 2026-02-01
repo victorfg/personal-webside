@@ -1,12 +1,7 @@
-import Head from "next/head";
 import Link from "next/dist/client/link";
-import { useEffect } from "react";
+import Head from "next/head";
 
 export default function Custom404() {
-  useEffect(() => {
-    document.querySelector(".mb-auto").classList.add("position-relative");
-    document.querySelector(".footer-main").classList.add("position-bottom");
-  });
   return (
     <>
       <Head>

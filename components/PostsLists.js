@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { ListItem } from "./Animations";
 import { DateCustomComponent } from "./DateCustomComponent";
@@ -6,45 +7,53 @@ import { formatTitleForUrl } from "./Utils";
 import Labels from "./Labels";
 
 const PostsLists = ({ displayedPosts }) => {
+  const router = useRouter();
+
+  const handleArticleClick = (title) => {
+    router.push(`/blog/${formatTitleForUrl(title)}`);
+  };
+
   return (
-    <div id="content-posts">
+    <section id="content-posts" aria-label="Blog posts">
       {displayedPosts.map((row, i) => (
         <ListItem key={uuidv4()}>
-          <Link
-            href={`/blog/${formatTitleForUrl(row.title)}`}
-            legacyBehavior
-            passHref
-            onError={() => {
-              window.location.href = "/404";
+          <article 
+            className="max-w-4xl px-10 my-4 py-6 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out dark:bg-transparent border cursor-pointer"
+            onClick={() => handleArticleClick(row.title)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleArticleClick(row.title);
+              }
             }}
           >
-            <div className="cursor-pointer max-w-4xl px-10 my-4 py-6 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out dark:bg-transparent border">
-              <div className="flex justify-between items-center">
-                {row.date && (
-                  <span className="font-light text-gray-600">
-                    <DateCustomComponent data={row.date} />
-                  </span>
-                )}
-                <div>
-                  {(row.tags || []).map((tagItem, i) => (
-                    <Labels key={uuidv4()} tagItem={tagItem} index={i} />
-                  ))}
-                </div>
+            <header className="flex justify-between items-center">
+              {row.date && (
+                <time className="font-light text-gray-600" dateTime={row.date}>
+                  <DateCustomComponent data={row.date} />
+                </time>
+              )}
+              <div onClick={(e) => e.stopPropagation()}>
+                {(row.tags || []).map((tagItem, i) => (
+                  <Labels key={uuidv4()} tagItem={tagItem} index={i} />
+                ))}
               </div>
-              <div className="mt-2">
-                <a className="text-2xl text-black font-bold hover:text-gray-600 dark:text-white">
-                  {row.title}
-                </a>
+            </header>
+            <div className="mt-2">
+              <h2 className="text-2xl text-black font-bold hover:text-gray-600 dark:text-white">
+                {row.title}
+              </h2>
 
-                <p className="mt-2 prose max-w-full dark:text-gray-400">
-                  {row.summary}
-                </p>
-              </div>
+              <p className="mt-2 prose max-w-full dark:text-gray-400">
+                {row.summary}
+              </p>
             </div>
-          </Link>
+          </article>
         </ListItem>
       ))}
-    </div>
+    </section>
   );
 };
 

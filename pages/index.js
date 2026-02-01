@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTina } from "tinacms/dist/edit-state";
 import { client } from "../.tina/__generated__/client";
-import useDeviceDetect from "../utils/utils";
 import CustomPagination from "../components/CustomPagination";
 import PostsLists from "../components/PostsLists";
 import Searcher from "../components/Searcher";
 import TopicsFilter from "../components/TopicsFilter";
+import useDeviceDetect from "../utils/utils";
 
 export default function Home(props) {
   const { isMobile } = useDeviceDetect();
@@ -19,10 +19,6 @@ export default function Home(props) {
   const allPosts = data.page.rows;
   const postsPerPage = 3;
 
-  useEffect(() => {
-    document.querySelector(".mb-auto").classList.add("position-relative");
-    document.querySelector(".footer-main").classList.add("position-bottom");
-  });
 
   const handleSearch = (searchTerm) => {
     const filtered = allPosts.filter((post) =>
@@ -40,8 +36,10 @@ export default function Home(props) {
 
     return (
       <>
-        <Searcher onSearch={handleSearch} />
-        <div className="posts-container md:mt-10 container mx-auto">
+        <section aria-label="Search posts">
+          <Searcher onSearch={handleSearch} />
+        </section>
+        <section className="posts-container md:mt-10 container mx-auto" aria-label="Blog posts list">
           <PostsLists displayedPosts={currentPosts} />
           <CustomPagination
             totalPosts={filteredPosts.length}
@@ -52,8 +50,10 @@ export default function Home(props) {
 
           {/*DEBUG*/}
           {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-        </div>
-        <TopicsFilter displayedPosts={allPosts} />
+        </section>
+        <aside aria-label="Filter by topics">
+          <TopicsFilter displayedPosts={allPosts} />
+        </aside>
       </>
     );
   }

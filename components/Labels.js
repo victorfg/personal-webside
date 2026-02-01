@@ -8,6 +8,10 @@ const Labels = ({ tagItem, bigLabel = false, title }) => {
     baseClasses += " text-lg px-4 py-2";
   }
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <Link
       href={`/tags/${encodeURIComponent(tagItem)}`}
@@ -17,7 +21,7 @@ const Labels = ({ tagItem, bigLabel = false, title }) => {
         window.location.href = "/404";
       }}
     >
-      <a href="#" className={baseClasses}>
+      <a href="#" className={baseClasses} onClick={handleClick}>
         {tagItem}
       </a>
     </Link>

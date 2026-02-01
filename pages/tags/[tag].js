@@ -30,34 +30,35 @@ export default function TagPage(props) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-center mb-6">
-        Posts tagged with "{tag}"
-      </h1>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <header className="mb-6">
+        <h1 className="text-2xl font-bold text-center">
+          Posts tagged with "{tag}"
+        </h1>
+      </header>
+      <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-4" aria-label={`Posts tagged with ${tag}`}>
         {filteredPosts.map((post, index) => (
-          <Link
+          <article 
             key={uuidv4()}
-            href={`/blog/${formatTitleForUrl(post.title)}`}
-            legacyBehavior
-            passHref
-            onError={() => {
-              window.location.href = "/404";
-            }}
+            className="bg-white text-black rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out dark:bg-transparent border text-white"
           >
-            <div className="cursor-pointer bg-white text-black rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out dark:bg-transparent border text-white">
-              <div className="p-6">
-                <h2 className="text-black font-semibold text-xl mb-2 dark:text-white">
-                  {post.title}
-                </h2>
-                <p className="text-gray-700 dark:text-gray-400">
-                  {post.summary}
-                </p>
-                <div className="mt-4"></div>
-              </div>
+            <div className="p-6">
+              <h2 className="text-black font-semibold text-xl mb-2 dark:text-white">
+                <Link
+                  href={`/blog/${formatTitleForUrl(post.title)}`}
+                  onError={() => {
+                    window.location.href = "/404";
+                  }}
+                >
+                  <a className="cursor-pointer">{post.title}</a>
+                </Link>
+              </h2>
+              <p className="text-gray-700 dark:text-gray-400">
+                {post.summary}
+              </p>
             </div>
-          </Link>
+          </article>
         ))}
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,14 +1,14 @@
-import { Layout } from "../../components/Layout";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useTina } from "tinacms/dist/edit-state";
-import { client } from "../../.tina/__generated__/client";
-import { getItemFromArray } from "../../components/Utils";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { client } from "../../.tina/__generated__/client";
 import { CodeblockCustom } from "../../components/CodeblockCustom";
 import { DateCustomComponent } from "../../components/DateCustomComponent";
-import { MetaComponent } from "../../components/MetaComponent";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import Labels from "../../components/Labels";
+import { Layout } from "../../components/Layout";
+import { MetaComponent } from "../../components/MetaComponent";
+import { getItemFromArray } from "../../components/Utils";
 
 const pageComponents = {
   CodeBlock: (props) => {
@@ -32,10 +32,6 @@ export default function Home(props) {
 
   const router = useRouter();
 
-  useEffect(() => {
-    document.querySelector(".mb-auto").classList.remove("position-relative");
-    document.querySelector(".footer-main").classList.remove("position-bottom");
-  });
 
   useEffect(() => {
     const slug = router.query.slug.replace(/-/g, " ");
@@ -71,31 +67,38 @@ export default function Home(props) {
         />
 
         <Layout previousPost={previousPost} nextPost={nextPost}>
-          <h1 className="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            {getBlogItem?.title}
-          </h1>
-          {getBlogItem?.date && <DateCustomComponent data={getBlogItem.date} />}
-          {(getBlogItem?.tags || []).map((tagItem, i) => (
-            <span
-              key={tagItem + "_" + i}
-              className="inline-block cursor-pointer mt-1 ml-2"
-            >
-              <Labels tagItem={tagItem} index={i} />
-            </span>
-          ))}
-          {(getBlogItem?.blocks || []).map((block, i) => (
-            <div
-              className="prose max-w-none pb-4 dark:prose-dark text-justify"
-              key={"contePost_" + i}
-            >
-              <article>
-                <TinaMarkdown
-                  components={pageComponents}
-                  content={block.block}
-                />
-              </article>
+          <article>
+            <header>
+              <h1 className="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+                {getBlogItem?.title}
+              </h1>
+              {getBlogItem?.date && (
+                <time dateTime={getBlogItem.date}>
+                  <DateCustomComponent data={getBlogItem.date} />
+                </time>
+              )}
+              <div className="mt-1">
+                {(getBlogItem?.tags || []).map((tagItem, i) => (
+                  <span
+                    key={tagItem + "_" + i}
+                    className="inline-block cursor-pointer mt-1 ml-2"
+                  >
+                    <Labels tagItem={tagItem} index={i} />
+                  </span>
+                ))}
+              </div>
+            </header>
+            <div className="prose max-w-none pb-4 dark:prose-dark text-justify">
+              {(getBlogItem?.blocks || []).map((block, i) => (
+                <section key={"contePost_" + i}>
+                  <TinaMarkdown
+                    components={pageComponents}
+                    content={block.block}
+                  />
+                </section>
+              ))}
             </div>
-          ))}
+          </article>
           {/*DEBUG*/}
           {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
         </Layout>

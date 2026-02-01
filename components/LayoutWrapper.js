@@ -35,12 +35,9 @@ const LayoutWrapper = ({ children }) => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col justify-between">
-        <div className="header fixed w-full z-10" ref={navRef}>
-          <header
-            className="flex items-center justify-between pb-6 lg:py-10 mt-4"
-            ref={navRef}
-          >
+      <>
+        <header className="fixed top-0 left-0 right-0 w-full z-10 px-6" ref={navRef}>
+          <div className="flex items-center justify-between pb-6 lg:py-10 mt-4">
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <a className="cursor-pointer">
                 <div className="flex items-center justify-between">
@@ -55,7 +52,7 @@ const LayoutWrapper = ({ children }) => {
                 </div>
               </a>
             </Link>
-            <div className="flex items-center text-base leading-5">
+            <nav className="flex items-center text-base leading-5" aria-label="Main navigation">
               <div className="hidden sm:block">
                 {headerNavLinks.map((link) => (
                   <Link key={uuidv4()} href={link.href}>
@@ -67,64 +64,55 @@ const LayoutWrapper = ({ children }) => {
               </div>
               <ThemeSwitch />
               <MobileNav />
-            </div>
-          </header>
-        </div>
-        <SectionContainer>
-          <main className="mb-auto mt-20">{children}</main>
-        </SectionContainer>
-      </div>
+            </nav>
+          </div>
+        </header>
+        <main className="mb-auto mt-24 mb-8 px-6">{children}</main>
+      </>
     );
   } else {
     return (
-      <SectionContainer>
-        <div className="flex flex-col justify-between">
-          <motion.div
-            className="header"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.5,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
-          >
-            <header className="flex items-center justify-between pb-10 lg:py-10">
-              <Link href="/" aria-label={siteMetadata.headerTitle}>
-                <a className="cursor-pointer">
-                  <div className="flex items-center justify-between">
-                    <div className="mr-3" />
-                    <div className="text-2xl font-semibold sm:block title-header">
-                      {siteMetadata.headerTitle}
-                    </div>
+      <div className="flex flex-col flex-1">
+        <motion.header
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+        >
+          <div className="flex items-center justify-between pb-10 lg:py-10">
+            <Link href="/" aria-label={siteMetadata.headerTitle}>
+              <a className="cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <div className="mr-3" />
+                  <div className="text-2xl font-semibold sm:block title-header">
+                    {siteMetadata.headerTitle}
                   </div>
-                </a>
-              </Link>
-              <div className="flex items-center text-base leading-5">
-                <div className="hidden sm:block">
-                  {headerNavLinks.map((link, i) => (
-                    <Link key={uuidv4()} href={link.href}>
-                      <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
-                        {link.title}
-                      </a>
-                    </Link>
-                  ))}
                 </div>
-                <ThemeSwitch />
+              </a>
+            </Link>
+            <nav className="flex items-center text-base leading-5" aria-label="Main navigation">
+              <div className="hidden sm:block">
+                {headerNavLinks.map((link, i) => (
+                  <Link key={uuidv4()} href={link.href}>
+                    <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
+                      {link.title}
+                    </a>
+                  </Link>
+                ))}
               </div>
-            </header>
-          </motion.div>
-          <div className="mb-auto" id="style-scroll-custom">
-            {children}
+              <ThemeSwitch />
+            </nav>
           </div>
-        </div>
-      </SectionContainer>
+        </motion.header>
+        <main className="mb-auto flex-1" id="style-scroll-custom">
+          {children}
+        </main>
+      </div>
     );
   }
-};
-
-const SectionContainer = ({ children }) => {
-  return <main>{children}</main>;
 };
 
 export default LayoutWrapper;

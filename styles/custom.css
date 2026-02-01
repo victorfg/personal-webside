@@ -78,12 +78,38 @@
 
 /* END dark theme */
 
-@media (min-width: 640px) {
-  .position-relative {
-    position: relative;
-    height: 100vh;
-  }
+/* Reset de márgenes y asegurar scroll en mobile */
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
 
+body {
+  position: relative;
+}
+
+#__next {
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+}
+
+/* Safe area para dispositivos con notch */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+@media (max-width: 639px) {
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+@media (min-width: 640px) {
   html::-webkit-scrollbar-track {
     border: 1px solid white;
   }

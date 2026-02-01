@@ -51,15 +51,18 @@ export const Footer = () => {
   const isHome = useIsHome();
   const isLabelPage = useIsLabelPage();
   const { isMobile } = useDeviceDetect();
+  const currentYear = new Date().getFullYear();
+  
   return (
-    <footer>
-      <div className={`footer-main md:bottom-0 md:w-full md:mb-5`}>
+    <footer className="sm:mt-auto pb-safe px-6 sm:px-0">
+      <div className={`footer-main md:bottom-0 md:w-full md:mb-5 py-6 pb-8`}>
         {isMobile && <SocialIcons />}
         <div className="sm:flex sm:items-center sm:justify-between text-center">
           <span className="text-sm sm:text-center dark:text-gray-400">
-            © 2022
+            © {currentYear}
             <Link href="/">
               <a className="hover:underline">
+                {" "}
                 ...codingPosts.
               </a>
             </Link>
