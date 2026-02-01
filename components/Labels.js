@@ -15,15 +15,10 @@ const Labels = ({ tagItem, bigLabel = false, title }) => {
   return (
     <Link
       href={`/tags/${encodeURIComponent(tagItem)}`}
-      legacyBehavior
-      passHref
-      onError={() => {
-        window.location.href = "/404";
-      }}
+      className={baseClasses}
+      onClick={handleClick}
     >
-      <a href="#" className={baseClasses} onClick={handleClick}>
-        {tagItem}
-      </a>
+      {tagItem}
     </Link>
   );
 };

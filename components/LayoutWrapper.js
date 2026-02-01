@@ -38,27 +38,31 @@ const LayoutWrapper = ({ children }) => {
       <>
         <header className="fixed top-0 left-0 right-0 w-full z-10 px-6" ref={navRef}>
           <div className="flex items-center justify-between pb-6 lg:py-10 mt-4">
-            <Link href="/" aria-label={siteMetadata.headerTitle}>
-              <a className="cursor-pointer">
-                <div className="flex items-center justify-between">
-                  <div className="mr-3" />
-                  {typeof siteMetadata.headerTitle === "string" ? (
-                    <div className="text-2xl font-semibold sm:block title-header">
-                      {siteMetadata.headerTitle}
-                    </div>
-                  ) : (
-                    siteMetadata.headerTitle
-                  )}
-                </div>
-              </a>
+            <Link 
+              href="/" 
+              aria-label={siteMetadata.headerTitle}
+              className="cursor-pointer"
+            >
+              <div className="flex items-center justify-between">
+                <div className="mr-3" />
+                {typeof siteMetadata.headerTitle === "string" ? (
+                  <div className="text-2xl font-semibold sm:block title-header">
+                    {siteMetadata.headerTitle}
+                  </div>
+                ) : (
+                  siteMetadata.headerTitle
+                )}
+              </div>
             </Link>
             <nav className="flex items-center text-base leading-5" aria-label="Main navigation">
               <div className="hidden sm:block">
                 {headerNavLinks.map((link) => (
-                  <Link key={uuidv4()} href={link.href}>
-                    <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
-                      {link.title}
-                    </a>
+                  <Link 
+                    key={uuidv4()} 
+                    href={link.href}
+                    className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"
+                  >
+                    {link.title}
                   </Link>
                 ))}
               </div>
@@ -83,23 +87,27 @@ const LayoutWrapper = ({ children }) => {
           }}
         >
           <div className="flex items-center justify-between pb-10 lg:py-10">
-            <Link href="/" aria-label={siteMetadata.headerTitle}>
-              <a className="cursor-pointer">
-                <div className="flex items-center justify-between">
-                  <div className="mr-3" />
-                  <div className="text-2xl font-semibold sm:block title-header">
-                    {siteMetadata.headerTitle}
-                  </div>
+            <Link 
+              href="/" 
+              aria-label={siteMetadata.headerTitle}
+              className="cursor-pointer"
+            >
+              <div className="flex items-center justify-between">
+                <div className="mr-3" />
+                <div className="text-2xl font-semibold sm:block title-header">
+                  {siteMetadata.headerTitle}
                 </div>
-              </a>
+              </div>
             </Link>
             <nav className="flex items-center text-base leading-5" aria-label="Main navigation">
               <div className="hidden sm:block">
                 {headerNavLinks.map((link, i) => (
-                  <Link key={uuidv4()} href={link.href}>
-                    <a className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4">
-                      {link.title}
-                    </a>
+                  <Link 
+                    key={uuidv4()} 
+                    href={link.href}
+                    className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"
+                  >
+                    {link.title}
                   </Link>
                 ))}
               </div>

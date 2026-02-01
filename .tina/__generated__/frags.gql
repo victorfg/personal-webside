@@ -1,0 +1,15 @@
+fragment PageParts on Page {
+  __typename
+  rows {
+    __typename
+    title
+    summary
+    blocks {
+      __typename
+      title
+      block
+    }
+    tags
+    date
+  }
+}

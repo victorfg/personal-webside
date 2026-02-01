@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTina } from "tinacms/dist/edit-state";
 import { client } from "../.tina/__generated__/client";
 import CustomPagination from "../components/CustomPagination";
 import PostsLists from "../components/PostsLists";
@@ -9,11 +8,9 @@ import useDeviceDetect from "../utils/utils";
 
 export default function Home(props) {
   const { isMobile } = useDeviceDetect();
-  const { data, isLoading } = useTina({
-    query: props.query,
-    variables: props.variables,
-    data: props.data,
-  });
+  // For TinaCMS 2.x local mode, use data directly
+  const data = props.data;
+  const isLoading = false;
   const [filteredPosts, setFilteredPosts] = useState(data.page.rows);
   const [currentPage, setCurrentPage] = useState(1);
   const allPosts = data.page.rows;

@@ -1,17 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useTina } from "tinacms/dist/edit-state";
 import { client } from "../../.tina/__generated__/client";
 import Link from "next/link";
 import { formatTitleForUrl } from "../../components/Utils";
 import { v4 as uuidv4 } from "uuid";
 
 export default function TagPage(props) {
-  const { data, isLoading } = useTina({
-    query: props.query,
-    variables: props.variables,
-    data: props.data,
-  });
+  // For TinaCMS 2.x local mode, use data directly
+  const data = props.data;
+  const isLoading = false;
 
   const router = useRouter();
   const { tag } = router.query;
@@ -45,11 +42,9 @@ export default function TagPage(props) {
               <h2 className="text-black font-semibold text-xl mb-2 dark:text-white">
                 <Link
                   href={`/blog/${formatTitleForUrl(post.title)}`}
-                  onError={() => {
-                    window.location.href = "/404";
-                  }}
+                  className="cursor-pointer hover:underline"
                 >
-                  <a className="cursor-pointer">{post.title}</a>
+                  {post.title}
                 </Link>
               </h2>
               <p className="text-gray-700 dark:text-gray-400">

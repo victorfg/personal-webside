@@ -14,23 +14,21 @@ export const Layout = ({ children, previousPost, nextPost }) => {
         aria-label="Post navigation"
       >
         {previousPost && (
-          <Link href={`/blog/${formatTitleForUrl(previousPost.title)}`}>
-            <a 
-              className="prev-post inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded border border-gray-300 hover:bg-gray-300 hover:text-white"
-              rel="prev"
-            >
-              ← {previousPost.title}
-            </a>
+          <Link 
+            href={`/blog/${formatTitleForUrl(previousPost.title)}`}
+            className="prev-post inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded border border-gray-300 hover:bg-gray-300 hover:text-white"
+            rel="prev"
+          >
+            ← {previousPost.title}
           </Link>
         )}
         {nextPost && (
-          <Link href={`/blog/${formatTitleForUrl(nextPost.title)}`}>
-            <a 
-              className="next-post inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded border border-gray-300 hover:bg-gray-300 hover:text-white"
-              rel="next"
-            >
-              {nextPost.title} →
-            </a>
+          <Link 
+            href={`/blog/${formatTitleForUrl(nextPost.title)}`}
+            className="next-post inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded border border-gray-300 hover:bg-gray-300 hover:text-white"
+            rel="next"
+          >
+            {nextPost.title} →
           </Link>
         )}
       </nav>

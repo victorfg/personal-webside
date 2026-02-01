@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useTina } from "tinacms/dist/edit-state";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { client } from "../../.tina/__generated__/client";
 import { CodeblockCustom } from "../../components/CodeblockCustom";
 import { DateCustomComponent } from "../../components/DateCustomComponent";
@@ -9,6 +7,122 @@ import Labels from "../../components/Labels";
 import { Layout } from "../../components/Layout";
 import { MetaComponent } from "../../components/MetaComponent";
 import { getItemFromArray } from "../../components/Utils";
+
+// Enhanced TinaMarkdown renderer for TinaCMS 2.x
+const TinaMarkdown = ({ content, components }) => {
+  if (!content) return null;
+  
+  const renderNode = (node, index = 0) => {
+    if (!node) return null;
+    
+    // Handle text nodes
+    if (node.type === 'text' || typeof node === 'string') {
+      const text = node.text || node;
+      let element = text;
+      
+      // Apply text formatting
+      if (node.bold) element = <strong key={index}>{element}</strong>;
+      if (node.italic) element = <em key={index}>{element}</em>;
+      if (node.underline) element = <u key={index}>{element}</u>;
+      if (node.code) element = <code key={index}>{element}</code>;
+      
+      return element;
+    }
+    
+    // Handle children
+    const children = node.children ? node.children.map((child, i) => renderNode(child, i)) : null;
+    
+    // Handle different node types
+    switch (node.type) {
+      case 'p':
+        return <p key={index}>{children}</p>;
+      
+      case 'h1':
+        return <h1 key={index}>{children}</h1>;
+      
+      case 'h2':
+        return <h2 key={index}>{children}</h2>;
+      
+      case 'h3':
+        return <h3 key={index}>{children}</h3>;
+      
+      case 'h4':
+        return <h4 key={index}>{children}</h4>;
+      
+      case 'h5':
+        return <h5 key={index}>{children}</h5>;
+      
+      case 'h6':
+        return <h6 key={index}>{children}</h6>;
+      
+      case 'blockquote':
+        return <blockquote key={index}>{children}</blockquote>;
+      
+      case 'ul':
+        return <ul key={index}>{children}</ul>;
+      
+      case 'ol':
+        return <ol key={index}>{children}</ol>;
+      
+      case 'li':
+        return <li key={index}>{children}</li>;
+      
+      case 'lic':
+        return <>{children}</>;
+      
+      case 'a':
+        return <a key={index} href={node.url} target="_blank" rel="noopener noreferrer">{children}</a>;
+      
+      case 'img':
+        return <img key={index} src={node.url} alt={node.alt || ''} />;
+      
+      case 'code_block':
+        return <pre key={index}><code>{node.value || children}</code></pre>;
+      
+      case 'hr':
+        return <hr key={index} />;
+      
+      case 'br':
+        return <br key={index} />;
+      
+      case 'html':
+        // Handle CodeBlock from HTML
+        if (node.value?.includes('CodeBlock')) {
+          const CodeBlock = components?.CodeBlock;
+          if (CodeBlock) {
+            // Extract children content from the HTML value
+            const match = node.value.match(/children="([^"]*)"/);
+            const childrenContent = match ? match[1].replace(/\\n/g, '\n') : '';
+            return <CodeBlock key={index} children={childrenContent} />;
+          }
+        }
+        return null;
+      
+      default:
+        // Handle custom components like CodeBlock
+        if (node.name === 'CodeBlock' || node.type === 'CodeBlock') {
+          const CodeBlock = components?.CodeBlock;
+          if (CodeBlock) {
+            return <CodeBlock key={index} {...node} />;
+          }
+        }
+        
+        // If we have children, render them
+        if (children) {
+          return <div key={index}>{children}</div>;
+        }
+        
+        return null;
+    }
+  };
+  
+  // Handle root level
+  if (content.children) {
+    return <>{content.children.map((child, i) => renderNode(child, i))}</>;
+  }
+  
+  return renderNode(content);
+};
 
 const pageComponents = {
   CodeBlock: (props) => {
@@ -24,11 +138,9 @@ export default function Home(props) {
   let previousPost = null;
   let nextPost = null;
 
-  const { data, isLoading } = useTina({
-    query: props.query,
-    variables: props.variables,
-    data: props.data,
-  });
+  // For TinaCMS 2.x local mode, use data directly
+  const data = props.data;
+  const isLoading = false;
 
   const router = useRouter();
 

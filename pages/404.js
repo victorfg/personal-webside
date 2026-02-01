@@ -16,8 +16,8 @@ export default function Custom404() {
         <img src="/404_error.jpg" alt="Page not found" className="image404" />
         <h1>Uh-oh! Looks like you stumbled into the wrong matrix.</h1>
         <p>The page you are looking for cannot be found on this website.</p>
-        <Link href="/">
-          <a className="btn-primary">Back to the Matrix</a>
+        <Link href="/" className="btn-primary">
+          Back to the Matrix
         </Link>
       </div>
 

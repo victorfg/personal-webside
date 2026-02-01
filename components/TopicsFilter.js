@@ -20,10 +20,12 @@ const TopicsFilter = ({ displayedPosts }) => {
     <div className="w-full sm:w-1/2 mx-auto text-black bg-white flex flex-wrap items-center justify-center dark:bg-transparent p-4 mt-10">
       <div className="w-full text-center mb-7 font-bold"></div>
       {sortedTagCounts.map(([tag, count]) => (
-        <Link key={tag} href={`/tags/${encodeURIComponent(tag)}`} passHref>
-          <a className="mx-2 mb-2 bg-gray-200 hover:bg-gray-300 text-black font-semibold py-2 px-4 rounded-lg dark:text-white bg-transparent border">
-            {tag} ({count})
-          </a>
+        <Link 
+          key={tag} 
+          href={`/tags/${encodeURIComponent(tag)}`}
+          className="mx-2 mb-2 bg-gray-200 hover:bg-gray-300 text-black font-semibold py-2 px-4 rounded-lg dark:text-white bg-transparent border"
+        >
+          {tag} ({count})
         </Link>
       ))}
     </div>

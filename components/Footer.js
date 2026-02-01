@@ -3,8 +3,8 @@ import useDeviceDetect from "../utils/utils";
 import { useIsHome, useIsLabelPage } from "../hooks/useNamePage";
 
 const SocialLink = ({ href, children }) => (
-  <Link href={href}>
-    <a className="hover:text-gray-900 dark:hover:text-white">{children}</a>
+  <Link href={href} className="hover:text-gray-900 dark:hover:text-white">
+    {children}
   </Link>
 );
 
@@ -60,11 +60,9 @@ export const Footer = () => {
         <div className="sm:flex sm:items-center sm:justify-between text-center">
           <span className="text-sm sm:text-center dark:text-gray-400">
             © {currentYear}
-            <Link href="/">
-              <a className="hover:underline">
-                {" "}
-                ...codingPosts.
-              </a>
+            <Link href="/" className="hover:underline">
+              {" "}
+              ...codingPosts.
             </Link>
           </span>
           <div className="text-sm flex items-center justify-center">
@@ -83,25 +81,34 @@ export const Footer = () => {
 
             <p>
               made with
-              <Link href="https://nextjs.org/">
-                <a className="hover:underline" target="_blank">
-                  {" "}
-                  Next.js
-                </a>
+              <Link 
+                href="https://nextjs.org/" 
+                className="hover:underline" 
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {" "}
+                Next.js
               </Link>
               ,
-              <Link href="https://tina.io/">
-                <a className="hover:underline" target="_blank">
-                  {" "}
-                  TINA
-                </a>
+              <Link 
+                href="https://tina.io/" 
+                className="hover:underline" 
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {" "}
+                TINA
               </Link>{" "}
               and
-              <Link href="https://tailwindcss.com/">
-                <a className="hover:underline" target="_blank">
-                  {" "}
-                  tailwindcss
-                </a>
+              <Link 
+                href="https://tailwindcss.com/" 
+                className="hover:underline" 
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {" "}
+                tailwindcss
               </Link>
             </p>
           </div>
