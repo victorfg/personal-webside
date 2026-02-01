@@ -15,22 +15,46 @@ const TinaMarkdown = ({ content, components }) => {
   const renderNode = (node, index = 0) => {
     if (!node) return null;
     
+    // Handle primitive types (string, number, boolean)
+    if (typeof node === 'string') {
+      return node;
+    }
+    
+    if (typeof node === 'number' || typeof node === 'boolean') {
+      return String(node);
+    }
+    
+    // Ensure node is an object
+    if (typeof node !== 'object') {
+      return null;
+    }
+    
     // Handle text nodes
-    if (node.type === 'text' || typeof node === 'string') {
-      const text = node.text || node;
+    if (node.type === 'text') {
+      const text = node.text || '';
       let element = text;
       
-      // Apply text formatting
-      if (node.bold) element = <strong key={index}>{element}</strong>;
-      if (node.italic) element = <em key={index}>{element}</em>;
-      if (node.underline) element = <u key={index}>{element}</u>;
-      if (node.code) element = <code key={index}>{element}</code>;
+      // Apply text formatting - ensure we wrap in React elements
+      if (node.bold) element = <strong key={`bold-${index}`}>{element}</strong>;
+      if (node.italic) element = <em key={`italic-${index}`}>{element}</em>;
+      if (node.underline) element = <u key={`underline-${index}`}>{element}</u>;
+      if (node.code) element = <code key={`code-${index}`}>{element}</code>;
       
       return element;
     }
     
-    // Handle children
-    const children = node.children ? node.children.map((child, i) => renderNode(child, i)) : null;
+    // Handle children recursively
+    const children = node.children 
+      ? node.children.map((child, i) => {
+          const rendered = renderNode(child, `${index}-${i}`);
+          // Ensure we never return plain objects
+          if (rendered && typeof rendered === 'object' && !rendered.$$typeof) {
+            console.warn('Invalid child detected:', child);
+            return null;
+          }
+          return rendered;
+        }).filter(Boolean)
+      : null;
     
     // Handle different node types
     switch (node.type) {
@@ -68,7 +92,7 @@ const TinaMarkdown = ({ content, components }) => {
         return <li key={index}>{children}</li>;
       
       case 'lic':
-        return <>{children}</>;
+        return <span key={index}>{children}</span>;
       
       case 'a':
         return <a key={index} href={node.url} target="_blank" rel="noopener noreferrer">{children}</a>;
@@ -107,18 +131,30 @@ const TinaMarkdown = ({ content, components }) => {
           }
         }
         
-        // If we have children, render them
-        if (children) {
+        // If we have children, render them wrapped in a div
+        if (children && children.length > 0) {
           return <div key={index}>{children}</div>;
         }
         
+        // Unknown node type - log and return null
+        console.warn('Unknown node type:', node.type, node);
         return null;
     }
   };
   
+  // Ensure content is valid
+  if (typeof content === 'string') {
+    return <span>{content}</span>;
+  }
+  
+  if (typeof content !== 'object') {
+    return null;
+  }
+  
   // Handle root level
-  if (content.children) {
-    return <>{content.children.map((child, i) => renderNode(child, i))}</>;
+  if (content.children && Array.isArray(content.children)) {
+    const rendered = content.children.map((child, i) => renderNode(child, i)).filter(Boolean);
+    return <>{rendered}</>;
   }
   
   return renderNode(content);
