@@ -2,7 +2,7 @@
   "name": "personalwebsite",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
