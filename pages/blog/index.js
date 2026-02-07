@@ -94,6 +94,11 @@ const TinaMarkdown = ({ content, components }) => {
         return <img key={index} src={node.url} alt={node.alt || ''} />;
       
       case 'code_block':
+        // Use the custom CodeBlock component for consistent rendering
+        const CodeBlockComponent = components?.CodeBlock;
+        if (CodeBlockComponent && node.value) {
+          return <CodeBlockComponent key={index} language={node.lang || 'plaintext'}>{node.value}</CodeBlockComponent>;
+        }
         return <pre key={index}><code>{node.value || children}</code></pre>;
       
       case 'hr':
@@ -103,16 +108,23 @@ const TinaMarkdown = ({ content, components }) => {
         return <br key={index} />;
       
       case 'html':
-        // Handle CodeBlock from HTML
-        if (node.value?.includes('CodeBlock')) {
+      case 'html_inline':
+        // Handle CodeBlock components embedded as HTML
+        const htmlValue = node.value || '';
+        if (htmlValue.includes('CodeBlock')) {
           const CodeBlock = components?.CodeBlock;
           if (CodeBlock) {
-            // Extract children content from the HTML value
-            const match = node.value.match(/children="([^"]*)"/);
-            const childrenContent = match ? match[1].replace(/\\n/g, '\n') : '';
-            return <CodeBlock key={index} children={childrenContent} />;
+            // Extract children and language from the HTML value
+            const childrenMatch = htmlValue.match(/children="([^"]*)"/);
+            const languageMatch = htmlValue.match(/language="([^"]*)"/);
+            if (childrenMatch) {
+              const childrenContent = childrenMatch[1].replace(/\\n/g, '\n');
+              const language = languageMatch ? languageMatch[1] : 'javascript';
+              return <CodeBlock key={index} language={language}>{childrenContent}</CodeBlock>;
+            }
           }
         }
+        // For other HTML, safely ignore
         return null;
       
       default:
@@ -120,7 +132,7 @@ const TinaMarkdown = ({ content, components }) => {
         if (node.name === 'CodeBlock' || node.type === 'CodeBlock') {
           const CodeBlock = components?.CodeBlock;
           if (CodeBlock) {
-            return <CodeBlock key={index} {...node} />;
+            return <CodeBlock key={index} language={node.language || 'javascript'}>{node.children}</CodeBlock>;
           }
         }
         
@@ -129,8 +141,7 @@ const TinaMarkdown = ({ content, components }) => {
           return <div key={index}>{children}</div>;
         }
         
-        // Unknown node type - log and return null
-        console.warn('Unknown node type:', node.type, node);
+        // Unknown node type - return null instead of logging in production
         return null;
     }
   };

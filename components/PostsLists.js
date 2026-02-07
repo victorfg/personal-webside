@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { ListItem } from "./Animations";
 import { DateCustomComponent } from "./DateCustomComponent";
+import { ReadingTime } from "./ReadingTime";
 import { formatTitleForUrl } from "./Utils";
 import Labels from "./Labels";
 
@@ -29,13 +30,18 @@ const PostsLists = ({ displayedPosts }) => {
               }
             }}
           >
-            <header className="flex justify-between items-center">
-              {row.date && (
-                <time className="font-light text-gray-600" dateTime={row.date}>
-                  <DateCustomComponent data={row.date} />
-                </time>
-              )}
-              <div onClick={(e) => e.stopPropagation()}>
+            <header className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
+              <div className="flex items-center gap-3">
+                {row.date && (
+                  <time className="font-light text-xs text-gray-600 dark:text-gray-400" dateTime={row.date}>
+                    <DateCustomComponent data={row.date} />
+                  </time>
+                )}
+                <ReadingTime 
+                  content={row.blocks?.map(b => b.block) || []} 
+                />
+              </div>
+              <div className="flex items-center flex-wrap gap-1" onClick={(e) => e.stopPropagation()}>
                 {(row.tags || []).map((tagItem, i) => (
                   <Labels key={uuidv4()} tagItem={tagItem} index={i} />
                 ))}

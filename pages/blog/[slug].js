@@ -6,6 +6,7 @@ import { DateCustomComponent } from "../../components/DateCustomComponent";
 import Labels from "../../components/Labels";
 import { Layout } from "../../components/Layout";
 import { MetaComponent } from "../../components/MetaComponent";
+import { ReadingTime } from "../../components/ReadingTime";
 import { getItemFromArray } from "../../components/Utils";
 
 // Enhanced TinaMarkdown renderer for TinaCMS 2.x
@@ -101,6 +102,11 @@ const TinaMarkdown = ({ content, components }) => {
         return <img key={index} src={node.url} alt={node.alt || ''} />;
       
       case 'code_block':
+        // Use the custom CodeBlock component for consistent rendering
+        const CodeBlockComponent = components?.CodeBlock;
+        if (CodeBlockComponent && node.value) {
+          return <CodeBlockComponent key={index} language={node.lang || 'plaintext'}>{node.value}</CodeBlockComponent>;
+        }
         return <pre key={index}><code>{node.value || children}</code></pre>;
       
       case 'hr':
@@ -110,16 +116,23 @@ const TinaMarkdown = ({ content, components }) => {
         return <br key={index} />;
       
       case 'html':
-        // Handle CodeBlock from HTML
-        if (node.value?.includes('CodeBlock')) {
+      case 'html_inline':
+        // Handle CodeBlock components embedded as HTML
+        const htmlValue = node.value || '';
+        if (htmlValue.includes('CodeBlock')) {
           const CodeBlock = components?.CodeBlock;
           if (CodeBlock) {
-            // Extract children content from the HTML value
-            const match = node.value.match(/children="([^"]*)"/);
-            const childrenContent = match ? match[1].replace(/\\n/g, '\n') : '';
-            return <CodeBlock key={index} children={childrenContent} />;
+            // Extract children and language from the HTML value
+            const childrenMatch = htmlValue.match(/children="([^"]*)"/);
+            const languageMatch = htmlValue.match(/language="([^"]*)"/);
+            if (childrenMatch) {
+              const childrenContent = childrenMatch[1].replace(/\\n/g, '\n');
+              const language = languageMatch ? languageMatch[1] : 'javascript';
+              return <CodeBlock key={index} language={language}>{childrenContent}</CodeBlock>;
+            }
           }
         }
+        // For other HTML, safely ignore
         return null;
       
       default:
@@ -127,7 +140,7 @@ const TinaMarkdown = ({ content, components }) => {
         if (node.name === 'CodeBlock' || node.type === 'CodeBlock') {
           const CodeBlock = components?.CodeBlock;
           if (CodeBlock) {
-            return <CodeBlock key={index} {...node} />;
+            return <CodeBlock key={index} language={node.language || 'javascript'}>{node.children}</CodeBlock>;
           }
         }
         
@@ -136,8 +149,7 @@ const TinaMarkdown = ({ content, components }) => {
           return <div key={index}>{children}</div>;
         }
         
-        // Unknown node type - log and return null
-        console.warn('Unknown node type:', node.type, node);
+        // Unknown node type - return null instead of logging in production
         return null;
     }
   };
@@ -169,41 +181,34 @@ const pageComponents = {
 };
 
 export default function Home(props) {
-  let getBlogItem = null;
-  let currentIndex = null;
-  let previousPost = null;
-  let nextPost = null;
-
   // For TinaCMS 2.x local mode, use data directly
   const data = props.data;
-  const isLoading = false;
-
   const router = useRouter();
 
+  // Get slug from router (available on both server and client)
+  const slug = router.query.slug ? router.query.slug.replace(/-/g, " ") : "";
+  
+  // Find the blog item based on slug (consistent on server and client)
+  const getBlogItem = data.page.rows.find(
+    (row) => row.title.toLowerCase() === slug.toLowerCase()
+  );
+
+  const currentIndex = data.page.rows.findIndex(
+    (row) => row.title.toLowerCase() === slug.toLowerCase()
+  );
+  
+  const previousPost = currentIndex > 0 ? data.page.rows[currentIndex - 1] : null;
+  const nextPost = currentIndex < data.page.rows.length - 1 
+    ? data.page.rows[currentIndex + 1] 
+    : null;
 
   useEffect(() => {
-    const slug = router.query.slug.replace(/-/g, " ");
-    const isValidSlug = data.page.rows.some(
-      (row) => row.title.toLowerCase() === slug.toLowerCase()
-    );
-    if (!isValidSlug) {
+    if (slug && !getBlogItem) {
       router.push("/404");
     }
-  }, [router.query.slug, data.page.rows]);
+  }, [slug, getBlogItem, router]);
 
-  if (typeof window !== "undefined") {
-    getBlogItem = getItemFromArray(window.location.pathname, data.page.rows);
-    currentIndex = data.page.rows.findIndex(
-      (row) => row.title.toLowerCase() === getBlogItem.title.toLowerCase()
-    );
-    previousPost = currentIndex > 0 ? data.page.rows[currentIndex - 1] : null;
-    nextPost =
-      currentIndex < data.page.rows.length - 1
-        ? data.page.rows[currentIndex + 1]
-        : null;
-  }
-
-  if (isLoading && !getBlogItem) {
+  if (!getBlogItem) {
     return <div>Loading...</div>;
   } else {
     return (
@@ -220,19 +225,19 @@ export default function Home(props) {
               <h1 className="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
                 {getBlogItem?.title}
               </h1>
-              {getBlogItem?.date && (
-                <time dateTime={getBlogItem.date}>
-                  <DateCustomComponent data={getBlogItem.date} />
-                </time>
-              )}
-              <div className="mt-1">
+              <div className="flex items-center gap-3 font-light text-xs text-gray-600 dark:text-gray-400">
+                {getBlogItem?.date && (
+                  <time dateTime={getBlogItem.date}>
+                    <DateCustomComponent data={getBlogItem.date} />
+                  </time>
+                )}
+                <ReadingTime 
+                  content={getBlogItem?.blocks?.map(b => b.block) || []} 
+                />
+              </div>
+              <div className="flex items-center flex-wrap gap-2 mt-2">
                 {(getBlogItem?.tags || []).map((tagItem, i) => (
-                  <span
-                    key={tagItem + "_" + i}
-                    className="inline-block cursor-pointer mt-1 ml-2"
-                  >
-                    <Labels tagItem={tagItem} index={i} />
-                  </span>
+                  <Labels key={tagItem + "_" + i} tagItem={tagItem} index={i} />
                 ))}
               </div>
             </header>
