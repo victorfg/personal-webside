@@ -15,7 +15,11 @@ import Comments from "../../components/Comments";
 const TinaMarkdown = ({ content, components }) => {
   if (!content) return null;
   
-  const renderNode = (node, index = 0) => {
+  // Use a counter for consistent keys
+  let keyCounter = 0;
+  const getKey = () => `node-${keyCounter++}`;
+  
+  const renderNode = (node, parentKey = '') => {
     if (!node) return null;
     
     // Handle primitive types (string, number, boolean)
@@ -32,16 +36,18 @@ const TinaMarkdown = ({ content, components }) => {
       return null;
     }
     
+    const nodeKey = getKey();
+    
     // Handle text nodes
     if (node.type === 'text') {
       const text = node.text || '';
       let element = text;
       
       // Apply text formatting - ensure we wrap in React elements
-      if (node.bold) element = <strong key={`bold-${index}`}>{element}</strong>;
-      if (node.italic) element = <em key={`italic-${index}`}>{element}</em>;
-      if (node.underline) element = <u key={`underline-${index}`}>{element}</u>;
-      if (node.code) element = <code key={`code-${index}`}>{element}</code>;
+      if (node.bold) element = <strong key={nodeKey}>{element}</strong>;
+      if (node.italic) element = <em key={nodeKey}>{element}</em>;
+      if (node.underline) element = <u key={nodeKey}>{element}</u>;
+      if (node.code) element = <code key={nodeKey}>{element}</code>;
       
       return element;
     }
@@ -49,10 +55,10 @@ const TinaMarkdown = ({ content, components }) => {
     // Handle children recursively
     const children = node.children 
       ? node.children.map((child, i) => {
-          const rendered = renderNode(child, `${index}-${i}`);
+          const childKey = `${nodeKey}-${i}`;
+          const rendered = renderNode(child, childKey);
           // Ensure we never return plain objects
           if (rendered && typeof rendered === 'object' && !rendered.$$typeof) {
-            console.warn('Invalid child detected:', child);
             return null;
           }
           return rendered;
@@ -62,10 +68,10 @@ const TinaMarkdown = ({ content, components }) => {
     // Handle different node types
     switch (node.type) {
       case 'p':
-        return <p key={index}>{children}</p>;
+        return <p key={nodeKey}>{children}</p>;
       
       case 'h1':
-        return <h1 key={index}>{children}</h1>;
+        return <h1 key={nodeKey}>{children}</h1>;
       
       case 'h2':
       case 'h3':
@@ -77,49 +83,82 @@ const TinaMarkdown = ({ content, components }) => {
           .join('') || '';
         const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         const HeadingTag = node.type;
-        return <HeadingTag key={index} id={headingId}>{children}</HeadingTag>;
+        return <HeadingTag key={nodeKey} id={headingId}>{children}</HeadingTag>;
       }
       
       case 'h5':
-        return <h5 key={index}>{children}</h5>;
+        return <h5 key={nodeKey}>{children}</h5>;
       
       case 'h6':
-        return <h6 key={index}>{children}</h6>;
+        return <h6 key={nodeKey}>{children}</h6>;
       
       case 'blockquote':
-        return <blockquote key={index}>{children}</blockquote>;
+        return <blockquote key={nodeKey}>{children}</blockquote>;
       
       case 'ul':
-        return <ul key={index}>{children}</ul>;
+        return <ul key={nodeKey}>{children}</ul>;
       
       case 'ol':
-        return <ol key={index}>{children}</ol>;
+        return <ol key={nodeKey}>{children}</ol>;
       
       case 'li':
-        return <li key={index}>{children}</li>;
+        return <li key={nodeKey}>{children}</li>;
       
       case 'lic':
-        return <span key={index}>{children}</span>;
+        return <span key={nodeKey}>{children}</span>;
+      
+      case 'table': {
+        // Ensure all tr elements are wrapped in thead or tbody
+        // Group children into thead and tbody
+        const tableChildren = children || [];
+        const hasTheadOrTbody = tableChildren.some(child => 
+          child?.type?.toString().includes('thead') || 
+          child?.type?.toString().includes('tbody')
+        );
+        
+        // If already has thead/tbody, use as is
+        if (hasTheadOrTbody) {
+          return <table key={nodeKey}>{children}</table>;
+        }
+        
+        // Otherwise, wrap all tr in tbody
+        return <table key={nodeKey}><tbody>{children}</tbody></table>;
+      }
+      
+      case 'thead':
+        return <thead key={nodeKey}>{children}</thead>;
+      
+      case 'tbody':
+        return <tbody key={nodeKey}>{children}</tbody>;
+      
+      case 'tr':
+        return <tr key={nodeKey}>{children}</tr>;
+      
+      case 'th':
+        return <th key={nodeKey}>{children}</th>;
+      
+      case 'td':
+        return <td key={nodeKey}>{children}</td>;
       
       case 'a':
-        return <a key={index} href={node.url} target="_blank" rel="noopener noreferrer">{children}</a>;
+        return <a key={nodeKey} href={node.url} target="_blank" rel="noopener noreferrer">{children}</a>;
       
       case 'img':
-        return <img key={index} src={node.url} alt={node.alt || ''} />;
+        return <img key={nodeKey} src={node.url} alt={node.alt || ''} />;
       
       case 'code_block':
         // Use the custom CodeBlock component for consistent rendering
         const CodeBlockComponent = components?.CodeBlock;
         if (CodeBlockComponent && node.value) {
-          return <CodeBlockComponent key={index} language={node.lang || 'plaintext'}>{node.value}</CodeBlockComponent>;
+          return <CodeBlockComponent key={nodeKey} language={node.lang || 'plaintext'}>{node.value}</CodeBlockComponent>;
         }
-        return <pre key={index}><code>{node.value || children}</code></pre>;
+        return <pre key={nodeKey}><code>{node.value || children}</code></pre>;
       
       case 'hr':
-        return <hr key={index} />;
+        return <hr key={nodeKey} />;
       
       case 'br':
-        return <br key={index} />;
+        return <br key={nodeKey} />;
       
       case 'html':
       case 'html_inline':
@@ -134,7 +173,7 @@ const TinaMarkdown = ({ content, components }) => {
             if (childrenMatch) {
               const childrenContent = childrenMatch[1].replace(/\\n/g, '\n');
               const language = languageMatch ? languageMatch[1] : 'javascript';
-              return <CodeBlock key={index} language={language}>{childrenContent}</CodeBlock>;
+              return <CodeBlock key={nodeKey} language={language}>{childrenContent}</CodeBlock>;
             }
           }
         }
@@ -146,13 +185,13 @@ const TinaMarkdown = ({ content, components }) => {
         if (node.name === 'CodeBlock' || node.type === 'CodeBlock') {
           const CodeBlock = components?.CodeBlock;
           if (CodeBlock) {
-            return <CodeBlock key={index} language={node.language || 'javascript'}>{node.children}</CodeBlock>;
+            return <CodeBlock key={nodeKey} language={node.language || 'javascript'}>{node.children}</CodeBlock>;
           }
         }
         
         // If we have children, render them wrapped in a div
         if (children && children.length > 0) {
-          return <div key={index}>{children}</div>;
+          return <div key={nodeKey}>{children}</div>;
         }
         
         // Unknown node type - return null instead of logging in production
@@ -169,9 +208,12 @@ const TinaMarkdown = ({ content, components }) => {
     return null;
   }
   
+  // Reset counter for each render
+  keyCounter = 0;
+  
   // Handle root level
   if (content.children && Array.isArray(content.children)) {
-    const rendered = content.children.map((child, i) => renderNode(child, i)).filter(Boolean);
+    const rendered = content.children.map((child, i) => renderNode(child, `root-${i}`)).filter(Boolean);
     return <>{rendered}</>;
   }
   

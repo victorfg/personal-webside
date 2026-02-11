@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { useTheme } from 'next-themes';
 
 export const CodeblockCustom = ({ content, language }) => {
   const [copied, setCopied] = useState(false);
+  const { resolvedTheme } = useTheme();
 
   const handleCopy = async () => {
     try {
@@ -14,8 +18,10 @@ export const CodeblockCustom = ({ content, language }) => {
     }
   };
 
+  const isDark = resolvedTheme === 'dark';
+
   return (
-    <div className="relative group">
+    <div className="relative group my-4">
       <button
         onClick={handleCopy}
         className="absolute top-2 right-2 px-3 py-1.5 text-xs font-medium text-gray-300 bg-gray-700 hover:bg-gray-600 rounded-md transition-all duration-200 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-500 z-10"
@@ -37,7 +43,34 @@ export const CodeblockCustom = ({ content, language }) => {
           </span>
         )}
       </button>
-      <SyntaxHighlighter code={content || ''} language={language || 'jsx'} />
+      <SyntaxHighlighter 
+        code={content || ''} 
+        language={language || 'jsx'}
+        style={isDark ? vscDarkPlus : oneLight}
+        customStyle={{
+          margin: 0,
+          borderRadius: '0.5rem',
+          fontSize: '0.875rem',
+          backgroundColor: isDark ? '#1e1e1e' : '#fafafa',
+          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace',
+          padding: '1rem',
+        }}
+        codeTagProps={{
+          style: {
+            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace',
+            backgroundColor: 'transparent',
+          }
+        }}
+        lineNumberStyle={{
+          backgroundColor: 'transparent',
+        }}
+        wrapLines={true}
+        lineProps={{
+          style: { 
+            backgroundColor: 'transparent',
+          }
+        }}
+      />
     </div>
   );
 };

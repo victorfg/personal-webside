@@ -97,6 +97,35 @@ module.exports = {
             blockquote: {
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200')
+            },
+            table: {
+              width: '100%',
+              borderCollapse: 'collapse',
+              marginTop: '2em',
+              marginBottom: '2em'
+            },
+            thead: {
+              borderBottomWidth: '2px',
+              borderBottomColor: theme('colors.gray.300')
+            },
+            'thead th': {
+              color: theme('colors.gray.900'),
+              fontWeight: '600',
+              verticalAlign: 'bottom',
+              paddingRight: '0.5714286em',
+              paddingBottom: '0.5714286em',
+              paddingLeft: '0.5714286em'
+            },
+            'tbody tr': {
+              borderBottomWidth: '1px',
+              borderBottomColor: theme('colors.gray.200')
+            },
+            'tbody td': {
+              verticalAlign: 'top',
+              paddingTop: '0.5714286em',
+              paddingRight: '0.5714286em',
+              paddingBottom: '0.5714286em',
+              paddingLeft: '0.5714286em'
             }
           }
         },
