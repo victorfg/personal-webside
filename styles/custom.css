@@ -247,11 +247,55 @@ article:hover h2 {
   color: #818cf8;
 }
 
-/* RSS Feed Link Styles */
-.rss-link {
+/* Social Icons Hover Effect */
+.social-icon {
   transition: transform 0.2s ease;
 }
 
-.rss-link:hover {
+.social-icon:hover {
   transform: scale(1.1);
+}
+
+/* Comments Section Styles */
+.comments-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.giscus-wrapper {
+  width: 100%;
+}
+
+/* Ensure giscus iframe is responsive */
+.giscus-frame {
+  width: 100%;
+}
+
+/* Style the comments section heading */
+.comments-container::before {
+  content: '💬 Comments';
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.dark .comments-container::before {
+  color: #f9fafb;
+}
+
+/* Blog Navigation Styles */
+.blog-navigation {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .blog-navigation > div:last-child {
+    flex-direction: column;
+  }
+  
+  .blog-navigation a {
+    max-width: 100% !important;
+  }
 }

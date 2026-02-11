@@ -9,6 +9,7 @@ import { MetaComponent } from "../../components/MetaComponent";
 import { ReadingTime } from "../../components/ReadingTime";
 import { getItemFromArray } from "../../components/Utils";
 import { TableOfContents } from "../../components/TableOfContents";
+import Comments from "../../components/Comments";
 
 // Enhanced TinaMarkdown renderer for TinaCMS 2.x
 const TinaMarkdown = ({ content, components }) => {
@@ -259,6 +260,9 @@ export default function Home(props) {
                   </section>
                 ))}
               </div>
+
+              {/* Comments Section */}
+              <Comments slug={router.query.slug} />
             </article>
             
             <TableOfContents 

@@ -2,16 +2,18 @@ import Link from "next/link";
 import useDeviceDetect from "../utils/utils";
 import { useIsHome, useIsLabelPage } from "../hooks/useNamePage";
 
-const SocialLink = ({ href, children, external = true }) => {
-  if (href.endsWith('.xml') || href.startsWith('/feed')) {
-    // Para RSS feeds, usar tag <a> normal
+const SocialLink = ({ href, children, ariaLabel }) => {
+  // Detectar si es un enlace externo (HTTP/HTTPS) o interno
+  const isExternal = href.startsWith('http') || href.endsWith('.xml') || href.startsWith('/feed');
+  
+  if (isExternal) {
     return (
       <a 
         href={href} 
         className="hover:text-gray-900 dark:hover:text-white"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="RSS Feed"
+        aria-label={ariaLabel}
       >
         {children}
       </a>
@@ -36,7 +38,7 @@ const SocialIcons = () => {
     >
       <SocialLink href="https://github.com/victorfg">
         <svg
-          className="w-5 h-5"
+          className="w-5 h-5 social-icon"
           fill="currentColor"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -52,7 +54,7 @@ const SocialIcons = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
-          className="w-5 h-5"
+          className="w-5 h-5 social-icon"
         >
           <path
             fill="currentColor"
@@ -62,12 +64,12 @@ const SocialIcons = () => {
       </SocialLink>
       <SocialLink href="/feed.xml">
         <svg
-          className="w-5 h-5 rss-link"
+          className="w-[18px] h-[18px] social-icon"
           fill="currentColor"
-          viewBox="0 0 24 24"
+          viewBox="0 0 20 20"
           aria-hidden="true"
         >
-          <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/>
+          <path d="M5.5 16.75c0 1.243-.874 2.25-1.95 2.25S1.6 17.993 1.6 16.75s.874-2.25 1.95-2.25 1.95 1.007 1.95 2.25zM1.6 7.5v3.5c4.418.046 8 3.582 8.036 8h3.514c-.036-6.351-5.191-11.484-11.55-11.5zm0-2.5c7.72.033 13.97 6.264 13.997 13.987h3.514c-.027-9.66-7.857-17.49-17.511-17.487v3.5z"/>
         </svg>
       </SocialLink>
     </div>
