@@ -2,11 +2,28 @@ import Link from "next/link";
 import useDeviceDetect from "../utils/utils";
 import { useIsHome, useIsLabelPage } from "../hooks/useNamePage";
 
-const SocialLink = ({ href, children }) => (
-  <Link href={href} className="hover:text-gray-900 dark:hover:text-white">
-    {children}
-  </Link>
-);
+const SocialLink = ({ href, children, external = true }) => {
+  if (href.endsWith('.xml') || href.startsWith('/feed')) {
+    // Para RSS feeds, usar tag <a> normal
+    return (
+      <a 
+        href={href} 
+        className="hover:text-gray-900 dark:hover:text-white"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="RSS Feed"
+      >
+        {children}
+      </a>
+    );
+  }
+  
+  return (
+    <Link href={href} className="hover:text-gray-900 dark:hover:text-white">
+      {children}
+    </Link>
+  );
+};
 
 const SocialIcons = () => {
   const { isMobile } = useDeviceDetect();
@@ -41,6 +58,16 @@ const SocialIcons = () => {
             fill="currentColor"
             d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
           />
+        </svg>
+      </SocialLink>
+      <SocialLink href="/feed.xml">
+        <svg
+          className="w-5 h-5 rss-link"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/>
         </svg>
       </SocialLink>
     </div>

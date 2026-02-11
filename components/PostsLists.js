@@ -19,7 +19,7 @@ const PostsLists = ({ displayedPosts }) => {
       {displayedPosts.map((row, i) => (
         <ListItem key={uuidv4()}>
           <article 
-            className="max-w-4xl px-10 my-4 py-6 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out dark:bg-transparent border cursor-pointer"
+            className="max-w-4xl px-10 my-6 py-6 bg-white rounded-lg shadow-md hover:shadow-2xl hover:scale-[1.02] hover:border-indigo-400 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 transition-all duration-300 ease-in-out dark:bg-transparent dark:hover:border-indigo-500 border cursor-pointer"
             onClick={() => handleArticleClick(row.title)}
             role="button"
             tabIndex={0}

@@ -181,3 +181,77 @@ body {
     box-shadow: 0 0 20px #6366f1, 0 0 10px #8b5cf6, 0 0 15px #a855f7;
   }
 }
+
+/* Table of Contents Styles */
+.toc-container {
+  max-height: calc(100vh - 10rem);
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dark .toc-container {
+  background: rgba(26, 32, 44, 0.8);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.toc-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-container::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+.dark .toc-container::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+/* Asegurar que el contenido principal tenga espacio para el TOC en pantallas grandes */
+@media (min-width: 1280px) {
+  .toc-container {
+    position: fixed;
+    right: max(2rem, calc((100vw - 1280px) / 2));
+  }
+}
+
+/* Improved Focus States */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Improved article hover effects */
+article:hover h2 {
+  color: #6366f1;
+}
+
+.dark article:hover h2 {
+  color: #818cf8;
+}
+
+/* RSS Feed Link Styles */
+.rss-link {
+  transition: transform 0.2s ease;
+}
+
+.rss-link:hover {
+  transform: scale(1.1);
+}

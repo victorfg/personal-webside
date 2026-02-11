@@ -8,6 +8,7 @@ import { Layout } from "../../components/Layout";
 import { MetaComponent } from "../../components/MetaComponent";
 import { ReadingTime } from "../../components/ReadingTime";
 import { getItemFromArray } from "../../components/Utils";
+import { TableOfContents } from "../../components/TableOfContents";
 
 // Enhanced TinaMarkdown renderer for TinaCMS 2.x
 const TinaMarkdown = ({ content, components }) => {
@@ -66,13 +67,17 @@ const TinaMarkdown = ({ content, components }) => {
         return <h1 key={index}>{children}</h1>;
       
       case 'h2':
-        return <h2 key={index}>{children}</h2>;
-      
       case 'h3':
-        return <h3 key={index}>{children}</h3>;
-      
-      case 'h4':
-        return <h4 key={index}>{children}</h4>;
+      case 'h4': {
+        // Generate ID from heading text for TOC
+        const headingText = node.children
+          ?.filter(child => child.type === 'text' || typeof child === 'string')
+          .map(child => typeof child === 'string' ? child : child.text)
+          .join('') || '';
+        const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const HeadingTag = node.type;
+        return <HeadingTag key={index} id={headingId}>{children}</HeadingTag>;
+      }
       
       case 'h5':
         return <h5 key={index}>{children}</h5>;
@@ -215,43 +220,51 @@ export default function Home(props) {
       <>
         <MetaComponent
           titleMeta={getBlogItem?.title}
-          description={getBlogItem?.title}
-          keywords={getBlogItem?.tags}
+          description={getBlogItem?.summary || getBlogItem?.title}
+          keyword={getBlogItem?.tags?.join(", ")}
+          url={`/blog/${router.query.slug}`}
+          type="article"
         />
 
         <Layout previousPost={previousPost} nextPost={nextPost}>
-          <article>
-            <header>
-              <h1 className="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-                {getBlogItem?.title}
-              </h1>
-              <div className="flex items-center gap-3 font-light text-xs text-gray-600 dark:text-gray-400">
-                {getBlogItem?.date && (
-                  <time dateTime={getBlogItem.date}>
-                    <DateCustomComponent data={getBlogItem.date} />
-                  </time>
-                )}
-                <ReadingTime 
-                  content={getBlogItem?.blocks?.map(b => b.block) || []} 
-                />
-              </div>
-              <div className="flex items-center flex-wrap gap-2 mt-2">
-                {(getBlogItem?.tags || []).map((tagItem, i) => (
-                  <Labels key={tagItem + "_" + i} tagItem={tagItem} index={i} />
+          <div className="relative">
+            <article className="max-w-4xl mx-auto">
+              <header>
+                <h1 className="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+                  {getBlogItem?.title}
+                </h1>
+                <div className="flex items-center gap-3 font-light text-xs text-gray-600 dark:text-gray-400">
+                  {getBlogItem?.date && (
+                    <time dateTime={getBlogItem.date}>
+                      <DateCustomComponent data={getBlogItem.date} />
+                    </time>
+                  )}
+                  <ReadingTime 
+                    content={getBlogItem?.blocks?.map(b => b.block) || []} 
+                  />
+                </div>
+                <div className="flex items-center flex-wrap gap-2 mt-2">
+                  {(getBlogItem?.tags || []).map((tagItem, i) => (
+                    <Labels key={tagItem + "_" + i} tagItem={tagItem} index={i} />
+                  ))}
+                </div>
+              </header>
+              <div className="prose max-w-none pb-4 dark:prose-dark text-justify">
+                {(getBlogItem?.blocks || []).map((block, i) => (
+                  <section key={"contePost_" + i}>
+                    <TinaMarkdown
+                      components={pageComponents}
+                      content={block.block}
+                    />
+                  </section>
                 ))}
               </div>
-            </header>
-            <div className="prose max-w-none pb-4 dark:prose-dark text-justify">
-              {(getBlogItem?.blocks || []).map((block, i) => (
-                <section key={"contePost_" + i}>
-                  <TinaMarkdown
-                    components={pageComponents}
-                    content={block.block}
-                  />
-                </section>
-              ))}
-            </div>
-          </article>
+            </article>
+            
+            <TableOfContents 
+              content={getBlogItem?.blocks?.map(b => b.block) || []} 
+            />
+          </div>
           {/*DEBUG*/}
           {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
         </Layout>

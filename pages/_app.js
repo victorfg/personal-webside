@@ -80,7 +80,9 @@ const App = ({ Component, pageProps }) => {
               <MetaComponent
                 titleMeta={"CodingPosts"}
                 description={"Personal Blog about frontend development"}
-                keywords={"react, frontend development"}
+                keyword={"react, frontend development, javascript, nextjs"}
+                url={router.asPath}
+                type="website"
               />
               <Component {...pageProps} />
             </LayoutWrapper>
