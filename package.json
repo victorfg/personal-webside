@@ -9,7 +9,7 @@
     "build": "tinacms build && next build",
     "lint": "npx -y standard --fix",
     "type-check": "tsc --noEmit",
-    "buildSitemap": "next build && next-sitemap"
+    "buildSitemap": "node scripts/generate-sitemap.js"
   },
   "description": "My personal Page",
   "dependencies": {
