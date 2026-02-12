@@ -33,6 +33,7 @@ try {
   const homeData = JSON.parse(fs.readFileSync(homePath, "utf-8"));
   const rows = homeData.rows || [];
 
+  const allTags = new Set();
   for (const row of rows) {
     const slug = formatTitleForUrl(row.title);
     routes.push({
@@ -40,6 +41,17 @@ try {
       changefreq: "weekly",
       priority: 0.8,
       lastmod: row.date ? new Date(row.date).toISOString() : new Date().toISOString(),
+    });
+    (row.tags || []).forEach((t) => allTags.add(t));
+  }
+
+  // Tag pages (same URL format as Labels: encodeURIComponent)
+  for (const tag of allTags) {
+    routes.push({
+      loc: `/tags/${encodeURIComponent(tag)}`,
+      changefreq: "weekly",
+      priority: 0.6,
+      lastmod: new Date().toISOString(),
     });
   }
 } catch (err) {
