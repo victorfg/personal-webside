@@ -1,26 +1,21 @@
-import Link from "next/link";
-import { formatTitleForUrl } from "./Utils";
+import Link from 'next/link'
 
-const Labels = ({ tagItem, bigLabel = false, title }) => {
-  let baseClasses =
-    "cursor-pointer bg-indigo-50 text-indigo-400 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium hover:bg-indigo-100 hover:text-indigo-800";
-  if (bigLabel) {
-    baseClasses += " text-lg px-4 py-2";
-  }
+const Labels = ({ tagItem, bigLabel = false }) => {
+  const size = bigLabel ? 'text-base' : 'text-xs'
 
   const handleClick = (e) => {
-    e.stopPropagation();
-  };
+    e.stopPropagation()
+  }
 
   return (
     <Link
       href={`/tags/${encodeURIComponent(tagItem)}`}
-      className={baseClasses}
+      className={`${size} text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors`}
       onClick={handleClick}
     >
       {tagItem}
     </Link>
-  );
-};
+  )
+}
 
-export default Labels;
+export default Labels

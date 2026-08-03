@@ -25,7 +25,8 @@ module.exports = {
         14: '3.5rem'
       },
       fontFamily: {
-        sans: ['InterVariable', ...defaultTheme.fontFamily.sans]
+        sans: ['IBM Plex Sans', ...defaultTheme.fontFamily.sans],
+        serif: ['Source Serif 4', ...defaultTheme.fontFamily.serif]
       },
       colors: {
         primary: colors.teal,

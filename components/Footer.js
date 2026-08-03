@@ -83,8 +83,8 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="sm:mt-auto pb-safe px-6 sm:px-0">
-      <div className={`footer-main md:bottom-0 md:w-full md:mb-5 py-6 pb-8`}>
+    <footer className='mt-16 sm:mt-20 pb-safe px-6 sm:px-0'>
+      <div className='footer-main md:bottom-0 md:w-full md:mb-5 pt-8 pb-8 border-t border-gray-200 dark:border-gray-800'>
         {isMobile && <SocialIcons />}
         <div className="sm:flex sm:items-center sm:justify-between text-center">
           <span className="text-sm sm:text-center dark:text-gray-400">

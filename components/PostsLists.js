@@ -1,66 +1,64 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
-import { ListItem } from "./Animations";
-import { DateCustomComponent } from "./DateCustomComponent";
-import { ReadingTime } from "./ReadingTime";
-import { formatTitleForUrl } from "./Utils";
-import Labels from "./Labels";
+import { useRouter } from 'next/router'
+import { DateCustomComponent } from './DateCustomComponent'
+import { ReadingTime } from './ReadingTime'
+import { formatTitleForUrl } from './Utils'
+import Labels from './Labels'
 
 const PostsLists = ({ displayedPosts }) => {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleArticleClick = (title) => {
-    router.push(`/blog/${formatTitleForUrl(title)}`);
-  };
+    router.push(`/blog/${formatTitleForUrl(title)}`)
+  }
 
   return (
-    <section id="content-posts" aria-label="Blog posts">
-      {displayedPosts.map((row, i) => (
-        <ListItem key={uuidv4()}>
-          <article 
-            className="max-w-4xl px-10 my-6 py-6 bg-white rounded-lg shadow-md hover:shadow-2xl hover:scale-[1.02] hover:border-indigo-400 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 transition-all duration-300 ease-in-out dark:bg-transparent dark:hover:border-indigo-500 border cursor-pointer"
-            onClick={() => handleArticleClick(row.title)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleArticleClick(row.title);
-              }
-            }}
-          >
-            <header className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
-              <div className="flex items-center gap-3">
-                {row.date && (
-                  <time className="font-light text-xs text-gray-600 dark:text-gray-400" dateTime={row.date}>
-                    <DateCustomComponent data={row.date} />
-                  </time>
-                )}
-                <ReadingTime 
-                  content={row.blocks?.map(b => b.block) || []} 
-                />
-              </div>
-              <div className="flex items-center flex-wrap gap-1" onClick={(e) => e.stopPropagation()}>
-                {(row.tags || []).map((tagItem, i) => (
-                  <Labels key={uuidv4()} tagItem={tagItem} index={i} />
-                ))}
-              </div>
-            </header>
-            <div className="mt-2">
-              <h2 className="text-2xl text-black font-bold hover:text-gray-600 dark:text-white">
-                {row.title}
-              </h2>
-
-              <p className="mt-2 prose max-w-full dark:text-gray-400">
-                {row.summary}
-              </p>
+    <section id='content-posts' className='w-full divide-y divide-gray-200 dark:divide-gray-800' aria-label='Blog posts'>
+      {displayedPosts.map((row) => (
+        <article
+          key={row.title}
+          className='group w-full py-8 sm:py-9 cursor-pointer focus-within:outline-none'
+          onClick={() => handleArticleClick(row.title)}
+          role='button'
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              handleArticleClick(row.title)
+            }
+          }}
+        >
+          <header className='flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-baseline'>
+            <div className='flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400'>
+              {row.date && (
+                <time dateTime={row.date}>
+                  <DateCustomComponent data={row.date} />
+                </time>
+              )}
+              <ReadingTime
+                content={row.blocks?.map((b) => b.block) || []}
+              />
             </div>
-          </article>
-        </ListItem>
+            <div
+              className='flex items-center flex-wrap gap-x-2 gap-y-1'
+              onClick={(e) => e.stopPropagation()}
+            >
+              {(row.tags || []).map((tagItem) => (
+                <Labels key={tagItem} tagItem={tagItem} />
+              ))}
+            </div>
+          </header>
+          <div className='mt-4'>
+            <h2 className='font-serif text-2xl font-semibold tracking-tight text-gray-900 group-hover:text-primary-600 dark:text-gray-50 dark:group-hover:text-primary-400 transition-colors'>
+              {row.title}
+            </h2>
+            <p className='mt-3 text-[0.95rem] leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-2'>
+              {row.summary}
+            </p>
+          </div>
+        </article>
       ))}
     </section>
-  );
-};
+  )
+}
 
-export default PostsLists;
+export default PostsLists

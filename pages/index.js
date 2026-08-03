@@ -1,71 +1,76 @@
-import { useState } from "react";
-import { client } from "../.tina/__generated__/client";
-import CustomPagination from "../components/CustomPagination";
-import PostsLists from "../components/PostsLists";
-import Searcher from "../components/Searcher";
-import TopicsFilter from "../components/TopicsFilter";
-import useDeviceDetect from "../utils/utils";
+import { useState } from 'react'
+import { client } from '../.tina/__generated__/client'
+import CustomPagination from '../components/CustomPagination'
+import LinksList from '../components/LinksList'
+import PostsLists from '../components/PostsLists'
+import Searcher from '../components/Searcher'
+import TopicsFilter from '../components/TopicsFilter'
 
-export default function Home(props) {
-  const { isMobile } = useDeviceDetect();
-  // For TinaCMS 2.x local mode, use data directly
-  const data = props.data;
-  const isLoading = false;
-  const [filteredPosts, setFilteredPosts] = useState(data.page.rows);
-  const [currentPage, setCurrentPage] = useState(1);
-  const allPosts = data.page.rows;
-  const postsPerPage = 3;
+export default function Home (props) {
+  const data = props.data
+  const [filteredPosts, setFilteredPosts] = useState(data.page.rows)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [searchTerm, setSearchTerm] = useState('')
+  const allPosts = data.page.rows
+  const postsPerPage = 3
 
-
-  const handleSearch = (searchTerm) => {
+  const handleSearch = (term) => {
+    setSearchTerm(term)
+    setCurrentPage(1)
     const filtered = allPosts.filter((post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredPosts(filtered);
-  };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  } else {
-    const lastPostIndex = currentPage * postsPerPage;
-    const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = filteredPosts.slice(firstPostIndex, lastPostIndex);
-
-    return (
-      <>
-        <section aria-label="Search posts">
-          <Searcher onSearch={handleSearch} />
-        </section>
-        <section className="posts-container md:mt-10 container mx-auto" aria-label="Blog posts list">
-          <PostsLists displayedPosts={currentPosts} />
-          <CustomPagination
-            totalPosts={filteredPosts.length}
-            postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-
-          {/*DEBUG*/}
-          {/*<pre>{JSON.stringify(data, null, 2)}</pre>*/}
-        </section>
-        <aside aria-label="Filter by topics">
-          <TopicsFilter displayedPosts={allPosts} />
-        </aside>
-      </>
-    );
+      post.title.toLowerCase().includes(term.toLowerCase())
+    )
+    setFilteredPosts(filtered)
   }
+
+  const lastPostIndex = currentPage * postsPerPage
+  const firstPostIndex = lastPostIndex - postsPerPage
+  const currentPosts = filteredPosts.slice(firstPostIndex, lastPostIndex)
+
+  return (
+    <div className='flex flex-col'>
+      <section aria-label='Blog posts'>
+        <div className='mb-8 max-w-md'>
+          <Searcher onSearch={handleSearch} />
+        </div>
+
+        <div className='posts-container'>
+          {filteredPosts.length === 0
+            ? (
+              <p className='text-sm text-gray-500 dark:text-gray-400 py-10'>
+                No posts match{searchTerm ? ` “${searchTerm}”` : ''}.
+              </p>
+              )
+            : (
+              <>
+                <PostsLists displayedPosts={currentPosts} />
+                <CustomPagination
+                  totalPosts={filteredPosts.length}
+                  postsPerPage={postsPerPage}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+                />
+              </>
+              )}
+        </div>
+      </section>
+
+      <TopicsFilter displayedPosts={allPosts} />
+      <LinksList />
+    </div>
+  )
 }
 
 export const getStaticProps = async () => {
   const { data, query, variables } = await client.queries.page({
-    relativePath: "home.json",
-  });
+    relativePath: 'home.json'
+  })
 
   return {
     props: {
       data,
       query,
-      variables,
-    },
-  };
-};
+      variables
+    }
+  }
+}

@@ -1,37 +1,35 @@
-import React from "react";
-import { v4 as uuidv4 } from "uuid";
+import React from 'react'
 
 const CustomPagination = ({
   totalPosts,
   postsPerPage,
   setCurrentPage,
-  currentPage,
+  currentPage
 }) => {
-  let pages = [];
+  const pageCount = Math.ceil(totalPosts / postsPerPage)
+  if (pageCount <= 1) return null
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pages.push(i);
-  }
+  const pages = Array.from({ length: pageCount }, (_, i) => i + 1)
 
   return (
-    <div className="pagination-container">
-      <div className="custom-pagination">
-        {pages.map((page, index) => {
-          return (
-            <button
-              key={uuidv4()}
-              onClick={() => setCurrentPage(page)}
-              className={`pagination-button${
-                currentPage === page ? " active" : ""
-              }`}
-            >
-              {page}
-            </button>
-          );
-        })}
+    <nav className='pagination-container' aria-label='Pagination'>
+      <div className='custom-pagination'>
+        {pages.map((page) => (
+          <button
+            key={page}
+            type='button'
+            onClick={() => setCurrentPage(page)}
+            className={`pagination-button${
+              currentPage === page ? ' active' : ''
+            }`}
+            aria-current={currentPage === page ? 'page' : undefined}
+          >
+            {page}
+          </button>
+        ))}
       </div>
-    </div>
-  );
-};
+    </nav>
+  )
+}
 
-export default CustomPagination;
+export default CustomPagination
